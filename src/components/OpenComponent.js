@@ -1,16 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
+import {useNavigate} from "react-router-dom";
 
-const Open = () => {
+const OpenComponent = () => {
 
-    const onOpenHandler = () => {
+    const navigate = useNavigate();
 
+    const tableNavigate = () => {
+        navigate("/tables");
     }
 
     return (
         <div>
             <button
                 id={"open-btn"}
-                onClick={onOpenHandler}
+                onClick={tableNavigate}
                 style={{
                     marginLeft: '40%',
                     marginTop: '250px',
@@ -24,4 +27,4 @@ const Open = () => {
     )
 }
 
-export default Open;
+export default OpenComponent;

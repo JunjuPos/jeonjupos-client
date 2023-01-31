@@ -1,0 +1,29 @@
+
+.sideNav-container {
+    flex: 0.2;
+    margin-top: 50px;
+    margin-right: 10px;
+}
+
+.sideNav-container > div {
+    margin-bottom: 10px;
+}
+
+.sideNavCard {
+    border: 1px solid black;
+    border-radius: 15px;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    list-style:none;
+    height: 50px;
+    width: 15%;
+    text-align: center;
+    background-color: #1e0272;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.sideNav-container > div:last-child {
+    border-bottom: none;
+}

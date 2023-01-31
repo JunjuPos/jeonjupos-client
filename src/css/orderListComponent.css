@@ -1,0 +1,134 @@
+/*body {*/
+/*    background-color: darkgray;*/
+/*}*/
+
+.orderListArea {
+    flex: 1;
+    width: 100%;
+    border: 3px solid darkgray;
+    border-radius: 10px;
+    margin-top: 30px;
+    height: 400px;
+}
+
+.orderListHeader {
+    border-radius: 10px 10px 0 0;
+    background-color: black;
+    color: orange;
+    flex: 2;
+    flex-direction: row;
+    display: inline-flex;
+    text-align: center;
+    width: 100%;
+    height: 10%;
+    line-height: 50%;
+}
+
+.orderListHeader-item {
+    flex: 1;
+}
+
+.orderList {
+    background-color: #294c8d;
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    height: 79%;
+    overflow: auto;
+    border-bottom: 3px solid darkgray;
+}
+
+.orderList-row {
+    flex: 2;
+    flex-direction: row;
+    display: inline-flex;
+    text-align: center;
+    width: 100%;
+    height: 10%;
+    border-bottom: 1px solid gray;
+    line-height: 50%;
+}
+
+.newOrderList-row {
+    background-color: darkgray;
+}
+
+.active {
+    background-color: gray;
+    color: white;
+}
+
+.newActive {
+    background-color: gray;
+    color: white;
+}
+
+.orderList-row:hover {
+    background-color: gray;
+    color: white;
+}
+
+.orderList-item {
+    flex: 1;
+}
+
+.orderList-row:last-child {
+    border-bottom: none;
+}
+
+.total-items{
+    display: flex;
+    background-color: black;
+    border-radius: 0 0 10px 10px;
+    height: 42px;
+}
+
+.total-items > p {
+    color: orange;
+}
+
+.total-title {
+    text-align: center;
+    flex: 2;
+}
+
+.total-count {
+    text-align: center;
+    flex: 1;
+}
+
+.total-price {
+    text-align: center;
+    flex: 1;
+}
+
+.countController-container {
+    width: 100%;
+    height: 10%;
+    margin: 7px 0 0 0;
+    flex-direction: row;
+    display: flex;
+}
+
+.countController-container > button {
+    flex: 1;
+    background-color: black;
+    color: white;
+    margin-right: 5px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.countController-container > button:last-child {
+    margin-right: 0;
+}
+
+/*.countController-plus {*/
+/*    flex: 1;*/
+/*}*/
+
+/*.countController-minus {*/
+/*    flex: 1;*/
+/*}*/

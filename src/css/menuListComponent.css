@@ -1,0 +1,67 @@
+
+.menuList-container {
+    flex: 2; 
+    margin-top: 30px;
+    width: 100%;
+    border: 3px solid darkgray;
+    border-collapse : collapse;
+    height: 650px;
+    background-color: darkgray;
+}
+
+.menuList-title-area {
+    /*flex: 2;*/
+    flex-direction: row;
+    display: inline-flex;
+    width: 100%;
+    height: 10%;
+}
+
+.menuList-title {
+    width: 25%;
+    text-align: center;
+    border-collapse : collapse;
+    border-radius: 10px;
+    margin: 5px 5px 5px 5px;
+    line-height: 290%;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: black;
+    color: orange;
+}
+
+.menuList-title:last-child {
+    /*border-collapse : collapse;*/
+}
+
+.menuList-card-area {
+    flex-direction: row;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    width: 100%;
+    height: 90%;
+}
+
+.menuList-card {
+    margin: 5px 5px 5px 5px;
+    width: 23.45%;
+    background-color: #294c8d;
+    color: white;
+    line-height: 240%;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.menuList-card > p {
+    margin: 0;
+}
+
+.menuList-title:hover {
+    background-color: gray;
+}
+
+.menuList-card:hover {
+    background-color: gray;
+}

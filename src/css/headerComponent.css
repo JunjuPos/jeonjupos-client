@@ -1,0 +1,77 @@
+.header-container {
+    background-color: #575656;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    display: flex;
+    margin-right: 10%;
+}
+
+.company {
+    flex: 0.5;
+    font-size: 30px;
+    line-height: 270%;
+    font-family: "Gill Sans", sans-serif;;
+    color: white;
+}
+
+.header-items {
+    flex: 1.5;
+    width: 100%;
+    display: flex;
+    background-color: #4b4545;
+    border-radius: 10px;
+    height: 70px;
+    /*position: absolute;*/
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.header-title-container {
+    flex: 3;
+    width: 100%;
+    text-align: left;
+    color: white;
+    display: flex;
+}
+
+.header-title-container > p {
+    line-height: 400%;
+    font-size: 18px;
+    margin: 0;
+    flex: 1;
+    width: 18%;
+}
+
+.header-title-item {
+    color: darkgray;
+    text-align: center;
+}
+
+.opening-date {
+    color: orange;
+    text-align: left;
+}
+
+.store-name {
+    text-align: left;
+}
+
+.header-date {
+    flex: 1;
+    padding-left: 10px;
+    text-align: right;
+    margin-right: 5%;
+}
+
+.date {
+    font-size: 20px;
+    color: white;
+    margin-right: 10px;
+}
+
+.time {
+    line-height: 300%;
+    font-size: 30px;
+    color: orange;
+}

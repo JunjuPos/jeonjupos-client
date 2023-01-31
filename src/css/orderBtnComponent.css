@@ -1,0 +1,22 @@
+.submitBtn-container {
+    flex: 2;
+    margin-top: 20px;
+    margin-left: 0px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+}
+
+.submitBtn-container > button {
+    border-radius: 10px;
+    height: 100%;
+    flex: 1;
+    margin-right: 5px;
+    font-size: 50px;
+    background-color: #262626;
+    color: white;
+}
+
+.submitBtn-container > button:last-child {
+    margin-right: 0px;
+}
