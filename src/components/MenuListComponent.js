@@ -5,6 +5,8 @@ import OrderListComponent from "./OrderListComponent";
 
 const MenuListComponent = (props) => {
 
+    console.log("menu list component");
+
     const [menulist, setMenuList] = useState([]);
     const [categoryList, setCategoryList] = useState([]);
     const [categoryMenuList, setCategoryMenuList] = useState([]);
@@ -14,6 +16,7 @@ const MenuListComponent = (props) => {
     const getMenuList = async () => {
         try{
             const menuListRes = await axiosInstance.get("/menu/list");
+            console.log("menuListRes : ", menuListRes)
             if (menuListRes.status === 200) {
                 if (menuListRes.data.res_code === "0000") {
                     setCategoryList(menuListRes.data.categorylist);
@@ -43,9 +46,10 @@ const MenuListComponent = (props) => {
     }
 
     useEffect(() => {
-        return (() => {
-            getMenuList();
-        })
+        getMenuList();
+        // return (() => {
+        //     getMenuList();
+        // })
     }, [])
 
     return (

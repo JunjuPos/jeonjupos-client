@@ -1,0 +1,68 @@
+
+
+.login-container {
+    margin-top: 50px;
+    border: 1px solid black;
+    text-align: center;
+    margin-left: 25%;
+    width: 50%;
+    height: 80%;
+    vertical-align: middle;
+}
+
+.login-container > div > span {
+
+}
+
+.id-input {
+    margin-top: 100px;
+    height: 30px;
+    background-color: #404663;
+    color: white;
+    border: none;
+    border-radius: 7px;
+}
+
+.password-input {
+    margin-top: 20px;
+    height: 30px;
+    background-color: #404663;
+    color: white;
+    border: none;
+    border-radius: 7px;
+}
+
+#login-btn {
+    margin-top: 50px;
+    width: 150px;
+    height: 60px;
+    border: none;
+
+    cursor: pointer;
+    font: inherit;
+    background-color: #404663;
+    color: #fff;
+    border: 0;
+    font-size: 2rem;
+    font-weight: 400;
+    /*padding: 0.5em 1.25em;*/
+    border-radius: 0.5em;
+    z-index: 999;
+    position: relative;
+    /*display: flex;*/
+    gap: 0.5em;
+    box-shadow:
+            0px 1.7px 2.2px rgba(0, 0, 0, 0.82),
+            0px 4px 5.3px rgba(0, 0, 0, 0.128),
+            0px 7.5px 10px rgba(0, 0, 0, 0.15),
+            0px 13.4px 17.9px rgba(0, 0, 0, 0.142),
+            0px 25.1px 33.4px rgba(0, 0, 0, 0.3),
+            0px 60px 80px rgba(0, 0, 0, 0.2);
+
+}
+
+#login-btn:hover {
+    background-color: #465085;
+    color: #fff;
+}
+

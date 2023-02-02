@@ -1,25 +1,61 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import "../css/openComponent.css";
+import axiosInstance from "../api/axiosClient";
+import {MyContext} from "../contexts/MyContext";
 
 const OpenComponent = () => {
 
     const navigate = useNavigate();
 
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const {setStorename} = useContext(MyContext);
+
     const tableNavigate = () => {
         navigate("/tables");
     }
 
+    const loginBtnHandler = async () => {
+        const data = {
+            id: id,
+            password: password
+        }
+        const result = await axiosInstance.post("/user/login", data);
+        if (result.status === 200) {
+            if (result.data.result === true) {
+                setStorename(result.data.data.storename);
+                tableNavigate();
+            } else {
+                alert(result.data.message)
+            }
+        } else {
+            alert("api 통신오류[" + result.status + "]")
+        }
+    }
+
+    const idHandler = (e) => {
+        setId(e.target.value);
+    }
+
+    const passwordHandler = (e) => {
+        setPassword(e.target.value);
+    }
+
     return (
-        <div>
+        <div className={"login-container"}>
+            <div>
+                <span>ID : </span>
+                <input type={"text"} className={"id-input"} onChange={(e) => {idHandler(e)}}></input>
+            </div>
+            <div>
+                <span>PS : </span>
+                <input type={"password"} className={"password-input"} onChange={(e) => {passwordHandler(e)}}></input>
+            </div>
+            {/*<br/>*/}
             <button
-                id={"open-btn"}
-                onClick={tableNavigate}
-                style={{
-                    marginLeft: '40%',
-                    marginTop: '250px',
-                    width: '20%',
-                    height: '100px'
-                }}
+                id={"login-btn"}
+                onClick={loginBtnHandler}
             >
                 오픈
             </button>

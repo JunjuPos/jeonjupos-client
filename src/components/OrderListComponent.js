@@ -24,11 +24,6 @@ const OrderListComponent = (props) => {
     const [newOrder, setNewOrder] = useState(0);
     const [orderInfoPkey, setOrderInfoPkey] = useState(0);
 
-    const navigate = useNavigate();
-    const orderPageMove = () => {
-        navigate("/order");
-    }
-
     useEffect(() => {
         setOrderList(props.orderList);
         setSpace(props.space);

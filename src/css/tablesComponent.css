@@ -1,99 +1,4 @@
 
-/*.spaceArea > div {*/
-/*    border: 3px solid deepskyblue;*/
-/*    color: #015068;*/
-/*    width: 150px;*/
-/*    height: 142px;*/
-/*    border-radius: 10px;*/
-/*}*/
-
-/*.spaceArea > div > .tableNum {*/
-/*    text-align: center;*/
-/*    margin: 0;*/
-/*    margin-top: 5px;*/
-/*    border-bottom: 1px solid deepskyblue;*/
-/*}*/
-
-/*.menuCard {*/
-/*    overflow: auto;*/
-/*    border-bottom: 1px solid deepskyblue;*/
-/*    height: 100px;*/
-
-/*}*/
-
-/*.menuName {*/
-/*    text-align: left;*/
-/*    margin: 0;*/
-/*    margin-top: 0px;*/
-/*    margin-left: 5px;*/
-/*    font-size: 13px;*/
-/*}*/
-
-/*.totalPrice {*/
-/*    text-align: right;*/
-/*    margin: 0px;*/
-/*    margin-right: 5px;*/
-/*}*/
-
-/*.spaceCard1 {*/
-/*    position: absolute;*/
-/*    top: 105px;*/
-/*    left: 50px;*/
-/*}*/
-
-/*.spaceCard2 {*/
-/*    position: absolute;*/
-/*    top: 105px;*/
-/*    left: 250px;*/
-/*}*/
-
-/*.spaceCard3 {*/
-/*    position: absolute;*/
-/*    top: 105px;*/
-/*    left: 500px;*/
-/*}*/
-
-/*.spaceCard4 {*/
-/*    position: absolute;*/
-/*    top: 105px;*/
-/*    left: 700px;*/
-/*}*/
-
-/*.spaceCard5 {*/
-/*    position: absolute;*/
-/*    top: 265px;*/
-/*    left: 50px;*/
-/*}*/
-
-/*.spaceCard6 {*/
-/*    position: absolute;*/
-/*    top: 265px;*/
-/*    left: 250px;*/
-/*}*/
-
-/*.spaceCard7 {*/
-/*    position: absolute;*/
-/*    top: 425px;*/
-/*    left: 50px;*/
-/*}*/
-
-/*.spaceCard8 {*/
-/*    position: absolute;*/
-/*    top: 265px;*/
-/*    left: 500px;*/
-/*}*/
-
-/*.spaceCard9 {*/
-/*    position: absolute;*/
-/*    top: 265px;*/
-/*    left: 700px;*/
-/*}*/
-
-/*.spaceCard10 {*/
-/*    position: absolute;*/
-/*    top: 425px;*/
-/*    left: 700px;*/
-/*}*/
 
 .space-container {
     flex: 2;
@@ -108,13 +13,18 @@
 }
 
 .space-card {
-    border: 3px solid cornflowerblue;
+    border: 2px solid #404663;
     border-radius: 15px;
-    /*flex: 1 1;*/
     width: 22%;
-    /*height: 50%;*/
     margin: 10px;
     background-color: white;
+    box-shadow:
+            0px 1.7px 2.2px rgba(0, 0, 0, 0.02),
+            0px 4px 5.3px rgba(0, 0, 0, 0.028),
+            0px 7.5px 10px rgba(0, 0, 0, 0.035),
+            0px 13.4px 17.9px rgba(0, 0, 0, 0.042),
+            0px 25.1px 33.4px rgba(0, 0, 0, 0.05),
+            0px 60px 80px rgba(0, 0, 0, 0.07);
 }
 
 .tableNum {
@@ -126,14 +36,15 @@
 }
 
 .space-card-body {
-    background-color: #3a6ac0;
+    background-color: #404663;
     margin: 2px 2px 2px 2px;
     border-radius: 15px;
 }
 
 .menuCard {
     margin-top: 5px;
-    height: 150px;
+    height: 100px;
+    overflow: auto;
 }
 
 .menuCard > div {

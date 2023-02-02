@@ -4,7 +4,6 @@ import axiosInstance from "../api/axiosClient";
 import "../css/tablesComponent.css";
 
 const TablesComponent = () => {
-
     const navigate = useNavigate();
 
     const orderNavigate = (e) => {
@@ -31,9 +30,10 @@ const TablesComponent = () => {
     }
 
     useEffect(() => {
-        return (() => {
-            getSpaceList();
-        })
+        getSpaceList();
+        // return (() => {
+        //     getSpaceList();
+        // })
     }, []);
 
     return (

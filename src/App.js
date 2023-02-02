@@ -1,15 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import IndexPage from "./pages/IndexPage";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import TablePage from "./pages/TablePage";
 import HeaderComponent from "./components/HeaderComponent";
 import OrderPage from "./pages/OrderPage";
 import "./css/main.css"
+import {MyContext} from "./contexts/MyContext";
 
 const App = () => {
 
+    const [storename, setStorename] = useState("");
+    // const []
+
     return (
-        <body>
+        <MyContext.Provider value={{storename, setStorename}}>
             <div className={"AppArea"}>
                 <Router>
                     <HeaderComponent/>
@@ -20,7 +24,7 @@ const App = () => {
                     </Routes>
                 </Router>
             </div>
-        </body>
+        </MyContext.Provider>
     );
 }
 

@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {useNavigate} from "react-router-dom";
 import "../css/headerComponent.css";
 import {useLocation} from "react-router";
+import {MyContext} from "../contexts/MyContext";
 
 const HeaderComponent = () => {
 
     const {state} = useLocation();  // 주문테이블 고유번호                 // 테이블 고유번호
-
     const navigate = useNavigate();
 
     const homeOnClick = () => {
@@ -41,7 +41,7 @@ const HeaderComponent = () => {
             </div>
             <div className={"header-items"}>
                 <div className={"header-title-container"}>
-                    <p className={"header-title-item"}>매장명 :</p><p className={"store-name"}>전주손칼국수</p>
+                    <p className={"header-title-item"}>매장명 :</p><p className={"store-name"}>{useContext(MyContext).storename}</p>
                     <p className={"header-title-item"}>영업일자 :</p><p className={"opening-date"}>{date}</p>
                     <p className={"header-title-item"}>테이블 :</p><p className={"table-num"}>{state}</p>
                 </div>

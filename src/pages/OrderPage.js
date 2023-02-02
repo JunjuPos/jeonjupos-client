@@ -15,6 +15,7 @@ const OrderPage = () => {
     const [orderList, setOrderList] = useState([])          // 주문완료한 주문내역
     const [space, setSpace] = useState({});                 // 테이블 정보
     const [firstOrderYn, setFirstOrderYn] = useState(false);    // 첫 주문 여부
+    const [expectedRestPrice, setExpectedRestPrice] = useState(0);
 
     useEffect(() => {
         getOrderList();
@@ -26,11 +27,13 @@ const OrderPage = () => {
 
     const getOrderList = async () => {
         let result = await axiosInstance.get("/space/order/list?spacepkey=" + state);
+        console.log(result);
         if (result.status === 200) {
             if (result.data.res_code === "0000") {
                 setOrderList(result.data.orderlist);
                 setSpace(result.data.space === null? {}: result.data.space);
                 setFirstOrderYn(result.data.space === null)
+                setExpectedRestPrice(result.data.space === null? 0 : result.data.space.expectedrestprice);
             } else {
                 alert("에러");
             }
@@ -71,6 +74,7 @@ const OrderPage = () => {
 
     const getDashBoard = (space) => {
         setTotalPrice(space.totalpayprice === undefined? 0 : space.totalpayprice);
+        setExpectedRestPrice(space.expectedrestprice === undefined? 0 : space.expectedrestprice);
     }
 
     const getNewTotalPrice = () => {
@@ -92,12 +96,12 @@ const OrderPage = () => {
     }, [orderCount])
 
     return (
-        <div style={{flex: "1 0 auto", display: "flex", alignItems: "flex-start", width: "100%"}}>
-            <div style={{flex: "1", marginLeft: "10px", width: "100%"}}>
+        <div style={{flex: "1 0 auto", display: "inline-flex", alignItems: "flex-start", width: "100%", height: "90%"}}>
+            <div style={{flex: "1", marginLeft: "10px", width: "100%", height: "100%"}}>
                 <OrderListComponent orderList={orderList} space={space} newOrderList={newOrderList} getDashBoard={getDashBoard} menuClick={menuClick} reRendering={reRendering}/>
-                <AmountDashBoardComponent totalPrice={totalPrice} newTotalPrice={newTotalPrice}/>
+                <AmountDashBoardComponent totalPrice={totalPrice} newTotalPrice={newTotalPrice} expectedRestPrice={expectedRestPrice}/>
             </div>
-            <div style={{flex: "1", marginLeft: "10px", marginRight: "10px", width: "100%"}}>
+            <div style={{flex: "1", marginLeft: "10px", marginRight: "10px", width: "100%", height: "100%"}}>
                 <MenuListComponent menuClick={menuClick}/>
                 <OrderBtnComponent newOrderList={newOrderList} firstOrderYn={firstOrderYn} space={space} orderList={orderList}/>
             </div>
