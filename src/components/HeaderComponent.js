@@ -12,7 +12,6 @@ const HeaderComponent = () => {
     const homeOnClick = () => {
         console.log(localStorage.getItem("openyn"));
         if (localStorage.getItem("openyn") === "true") {
-            console.log("안가니 ?");
             navigate("/tables");
         }
     }
@@ -45,7 +44,7 @@ const HeaderComponent = () => {
             </div>
             <div className={"header-items"}>
                 <div className={"header-title-container"}>
-                    <p className={"header-title-item"}>매장명 :</p><p className={"store-name"}>{useContext(MyContext).storename}</p>
+                    <p className={"header-title-item"}>매장명 :</p><p className={"store-name"}>{localStorage.getItem("storename")}</p>
                     <p className={"header-title-item"}>영업일자 :</p><p className={"opening-date"}>{date}</p>
                     <p className={"header-title-item"}>테이블 :</p><p className={"table-num"}>{state}</p>
                 </div>
