@@ -2,12 +2,8 @@ import React, {useState, useEffect} from "react";
 import "../css/amountDashBoardComponent.css"
 
 const AmountDashBoardComponent = (props) => {
-    const [totalPayPrice, setTotalPayPrice] = useState(props.totalPayPrice);
-    const [number, setNumber] = useState("");
 
-    useEffect(() => {
-        setTotalPayPrice(props.totalPayPrice === undefined? 0: props.totalPayPrice);
-    }, [props.totalPayPrice])
+    const [number, setNumber] = useState(0);
 
     const numberBtnItems = [0, 1, 2, 3, 4 ,5 ,6 ,7 ,8 ,9]
     const controllerBtnItems = ['C', '<', 'Enter']
@@ -19,18 +15,18 @@ const AmountDashBoardComponent = (props) => {
 
     const ctnBtnHandler = (e) => {
         const ctn = e.target.value;
-        if (ctn === "C") {
-            setNumber("");
-        } else if (ctn === "<") {
-            // console.log("parseInt(number.slice(0, -1)) : ", parseInt(number.slice(0, -1)));
-            if (number.toString().length > 1) {
-                setNumber(parseInt(number.toString().slice(0, -1)));
-            } else {
-                setNumber(0);
-            }
-        } else {
-
-        }
+        // if (ctn === "C") {
+        //     setNumber("");
+        // } else if (ctn === "<") {
+        //     // console.log("parseInt(number.slice(0, -1)) : ", parseInt(number.slice(0, -1)));
+        //     if (number.toString().length > 1) {
+        //         setNumber(parseInt(number.toString().slice(0, -1)));
+        //     } else {
+        //         setNumber(0);
+        //     }
+        // } else {
+        //
+        // }
     }
 
     return (
@@ -38,19 +34,19 @@ const AmountDashBoardComponent = (props) => {
             <div className={"AmountDashBoard-container"}>
                 <div className={"orderTotalPrice"}>
                     <p className={"orderTotalPrice-title"}>총 금 액</p>
-                    <p className={"orderTotalPrice-item"}>{props.totalSalePrice.toLocaleString()}</p>
+                    <p className={"orderTotalPrice-item"}>{props.space.totalSalePrice.toLocaleString()}</p>
                 </div>
                 <div className={"orderTotalPrice"}>
                     <p className={"orderTotalPrice-title"}>추가주문 금액</p>
-                    <p className={"orderTotalPrice-item"}>{props.newTotalPrice.toLocaleString()}</p>
+                    <p className={"orderTotalPrice-item"}>{props.newSalePrice.toLocaleString()}</p>
                 </div>
                 <div className={"orderTotalPrice"}>
                     <p className={"orderTotalPrice-title"}>받은금액</p>
-                    <p className={"orderTotalPrice-item"}>{totalPayPrice.toLocaleString()}</p>
+                    <p className={"orderTotalPrice-item"}>{props.space.totalPayPrice.toLocaleString()}</p>
                 </div>
                 <div className={"orderTotalPrice"}>
                     <p className={"orderTotalPrice-title"}>남은금액</p>
-                    <p className={"orderTotalPrice-item"}>{props.expectedRestPrice.toLocaleString()}</p>
+                    <p className={"orderTotalPrice-item"}>{props.space.expectedRestPrice.toLocaleString()}</p>
                 </div>
                 <div className={"orderTotalPrice"}>
                     <p className={"orderTotalPrice-title"}>거스름돈</p>

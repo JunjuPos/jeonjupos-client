@@ -18,7 +18,7 @@ const OrderBtnComponent = (props) => {
     const {state} = useLocation();  // 주문테이블 고유번호
 
     const orderClick = async () => {
-
+        props.orderHandler();
     }
 
     const orderCancelClick = async () => {

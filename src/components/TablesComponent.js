@@ -6,8 +6,11 @@ import "../css/tablesComponent.css";
 const TablesComponent = () => {
     const navigate = useNavigate();
 
-    const orderNavigate = (e) => {
-        navigate("/order", {state: e});
+    localStorage.setItem("spacepkey", "0")
+
+    const orderNavigate = (spacenum, spacepkey) => {
+        localStorage.setItem("spacepkey", spacepkey.toString())
+        navigate("/order", {state: spacenum});
         // navigate("/order", {state: {tableNo: e}});
     }
 
@@ -16,6 +19,7 @@ const TablesComponent = () => {
     const getSpaceList = async () => {
         try{
             const spaceListRes = await getTableList();
+            console.log(spaceListRes);
             if (spaceListRes.status === 200) {
                 if (spaceListRes.data.res_code === "0000") {
                     setSpaceList(spaceListRes.data.spacelist);
@@ -23,7 +27,6 @@ const TablesComponent = () => {
                     alert(setSpaceList.data.message)
                 }
             } else {
-                console.log(spaceListRes.status)
                 alert("api 통신 실패")
             }
         } catch (e) {
@@ -46,7 +49,7 @@ const TablesComponent = () => {
                         <div
                             className={"space-card spaceCard" + table.spacenum.toString()}
                             key={"td" + table.spacenum}
-                            onClick={(talbenum) => {orderNavigate(table.spacenum)}}
+                            onClick={(e) => {orderNavigate(table.spacenum, table.spacepkey)}}
                         >
                             <p className={"tableNum"} id={"tableNum" + table.spacenum} key={"tableNum" + table.spacenum}>
                                 {table.spacenum}
