@@ -24,12 +24,19 @@ const OrderBtnComponent = (props) => {
         // 첫 주문, 재주문 분기처리
         if (props.firstOrderYn === true) {
             // 첫 주문
-            const data = {
-                spacepkey: state,
-                ordermenulist: newOrderList,
-                takeoutyn: false
-            }
-            const result = await axiosInstance.post("/order", data);
+            const result = await axiosInstance.post(
+                "/order",
+                {
+                    spacepkey: state,
+                    ordermenulist: newOrderList,
+                    takeoutyn: false
+                },
+                {
+                    headers: {
+                        jwt: `${localStorage.getItem("jwt")}`
+                    }
+                }
+            );
             if (result.status === 200) {
                 tablePageMove();
             } else {
@@ -38,13 +45,19 @@ const OrderBtnComponent = (props) => {
             }
         } else {
             // 재주문
-
-            const data = {
-                orderinfopkey: props.space.orderinfopkey,
-                orderList: props.orderList,
-                newOrderList: props.newOrderList
-            }
-            const reOrder = await axiosInstance.post("/order/re", data);
+            const reOrder = await axiosInstance.post(
+                "/order/re",
+                {
+                    orderinfopkey: props.space.orderinfopkey,
+                    orderList: props.orderList,
+                    newOrderList: props.newOrderList
+                },
+                {
+                    headers: {
+                        jwt: `${localStorage.getItem("jwt")}`
+                    }
+                }
+            );
             if (reOrder.status === 200) {
                 tablePageMove();
             } else {

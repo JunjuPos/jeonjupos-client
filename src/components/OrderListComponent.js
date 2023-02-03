@@ -69,15 +69,23 @@ const OrderListComponent = (props) => {
 
     // + - 버튼 클릭
     const countOnClick = async (type) => {
+        console.log(countModifyType);
         if (countModifyType === "old") {
             // 기존 주문건
-            const data = {
-                ordermenupkey: orderMenuPkey,
-                orderInfoPkey: orderInfoPkey,
-                type: type
-            };
             try{
-                let result = await axiosInstance.post('/order/modify', data);
+                let result = await axiosInstance.post(
+                    '/order/modify',
+                    {
+                        ordermenupkey: orderMenuPkey,
+                        orderInfoPkey: orderInfoPkey,
+                        type: type
+                    },
+                    {
+                        headers: {
+                            jwt: `${localStorage.getItem("jwt")}`
+                        }
+                    }
+                );
                 console.log("result : ", result);
             } catch (err) {
 

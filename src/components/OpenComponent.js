@@ -5,7 +5,7 @@ import axiosInstance from "../api/axiosClient";
 import {MyContext} from "../contexts/MyContext";
 
 const OpenComponent = () => {
-
+    localStorage.setItem("openyn", "false");
     const navigate = useNavigate();
 
     const [id, setId] = useState("");
@@ -24,7 +24,15 @@ const OpenComponent = () => {
         const result = await axiosInstance.post("/user/login", data);
         if (result.status === 200) {
             if (result.data.result === true) {
-                setStorename(result.data.data.storename);
+                // storename
+                // setStorename(result.data.data.storename);    // context
+                localStorage.setItem("storename", result.data.data.storename);
+                // storeid
+                localStorage.setItem("storeid", result.data.data.storepkey);
+                // jwt
+                localStorage.setItem("jwt", result.data.data.jwt);
+
+                localStorage.setItem("openyn", "true");
                 tableNavigate();
             } else {
                 alert(result.data.message)

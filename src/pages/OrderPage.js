@@ -26,7 +26,13 @@ const OrderPage = () => {
     }, [])
 
     const getOrderList = async () => {
-        let result = await axiosInstance.get("/space/order/list?spacepkey=" + state);
+        let result = await axiosInstance.get(
+            "/space/order/list?spacepkey=" + state,
+            {
+            headers: {
+                jwt: `${localStorage.getItem("jwt")}`
+            }
+        });
         console.log(result);
         if (result.status === 200) {
             if (result.data.res_code === "0000") {

@@ -10,7 +10,11 @@ const HeaderComponent = () => {
     const navigate = useNavigate();
 
     const homeOnClick = () => {
-        navigate("/tables");
+        console.log(localStorage.getItem("openyn"));
+        if (localStorage.getItem("openyn") === "true") {
+            console.log("안가니 ?");
+            navigate("/tables");
+        }
     }
 
     const [date, setDate] = useState("");

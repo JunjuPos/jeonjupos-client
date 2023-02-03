@@ -14,7 +14,10 @@ const TablesComponent = () => {
 
     const getSpaceList = async () => {
         try{
-            const spaceListRes = await axiosInstance.get("/space/list");
+            const spaceListRes = await axiosInstance.get(
+                "/space/list",
+                {headers: {jwt: `${localStorage.getItem("jwt")}`}}
+            );
             if (spaceListRes.status === 200) {
                 if (spaceListRes.data.res_code === "0000") {
                     setSpaceList(spaceListRes.data.spacelist);

@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useRef} from "react";
 import axiosInstance from "../api/axiosClient";
 import "../css/menuListComponent.css"
-import OrderListComponent from "./OrderListComponent";
 
 const MenuListComponent = (props) => {
 
@@ -15,7 +14,14 @@ const MenuListComponent = (props) => {
 
     const getMenuList = async () => {
         try{
-            const menuListRes = await axiosInstance.get("/menu/list");
+            const menuListRes = await axiosInstance.get(
+                "/menu/list",
+                {
+                        headers: {
+                            jwt: `${localStorage.getItem("jwt")}`
+                        }
+                    }
+                );
             console.log("menuListRes : ", menuListRes)
             if (menuListRes.status === 200) {
                 if (menuListRes.data.res_code === "0000") {
