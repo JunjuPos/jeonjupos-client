@@ -61,12 +61,7 @@
     background-color: darkgray;
 }
 
-.active {
-    background-color: gray;
-    color: white;
-}
-
-.newActive {
+.order-card-active {
     background-color: gray;
     color: white;
 }

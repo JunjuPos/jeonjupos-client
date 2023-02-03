@@ -41,7 +41,7 @@ const HeaderComponent = () => {
     return (
         <div className={"header-container"} onClick={homeOnClick}>
             <div className={"company"}>
-                JeonJu POS
+                전주 POS
             </div>
             <div className={"header-items"}>
                 <div className={"header-title-container"}>

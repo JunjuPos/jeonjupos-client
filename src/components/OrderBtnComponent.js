@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from "react";
-import axiosInstance from "../api/axiosClient";
+import {
+    order,
+    reOrder
+} from "../api/axiosClient";
 import {useLocation} from "react-router";
 import {useNavigate} from "react-router-dom";
 import "../css/orderBtnComponent.css"
@@ -12,76 +15,19 @@ const OrderBtnComponent = (props) => {
 
     const navigate = useNavigate();
 
-    const tablePageMove = () => {
-        navigate("/tables");
-    }
-
-    const {state} = useLocation();  // 주문테이블 고유번호                 // 테이블 고유번호
-    const [newOrderList, setNewOrderList] = useState([]);
+    const {state} = useLocation();  // 주문테이블 고유번호
 
     const orderClick = async () => {
 
-        // 첫 주문, 재주문 분기처리
-        if (props.firstOrderYn === true) {
-            // 첫 주문
-            const result = await axiosInstance.post(
-                "/order",
-                {
-                    spacepkey: state,
-                    ordermenulist: newOrderList,
-                    takeoutyn: false
-                },
-                {
-                    headers: {
-                        jwt: `${localStorage.getItem("jwt")}`
-                    }
-                }
-            );
-            if (result.status === 200) {
-                tablePageMove();
-            } else {
-                alert("오류");
-                tablePageMove();
-            }
-        } else {
-            // 재주문
-            const reOrder = await axiosInstance.post(
-                "/order/re",
-                {
-                    orderinfopkey: props.space.orderinfopkey,
-                    orderList: props.orderList,
-                    newOrderList: props.newOrderList
-                },
-                {
-                    headers: {
-                        jwt: `${localStorage.getItem("jwt")}`
-                    }
-                }
-            );
-            if (reOrder.status === 200) {
-                tablePageMove();
-            } else {
-                alert("오류");
-                tablePageMove();
-            }
-        }
     }
 
     const orderCancelClick = async () => {
-        // 주문취소
-        tablePageMove();
+        navigate("/tables");
     }
 
     const payClick = async () => {
 
     }
-
-    useEffect(() => {
-        setNewOrderList(props.newOrderList);
-        // return (() => {
-        //     setNewOrderList(props.newOrderList);
-        // })
-    }, [props.newOrderList])
 
     return (
         <div className={"submitBtn-container"}>

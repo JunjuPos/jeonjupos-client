@@ -1,10 +1,8 @@
 import React, {useEffect, useState, useRef} from "react";
-import axiosInstance from "../api/axiosClient";
+import {getMenuList} from "../api/axiosClient";
 import "../css/menuListComponent.css"
 
 const MenuListComponent = (props) => {
-
-    console.log("menu list component");
 
     const [menulist, setMenuList] = useState([]);
     const [categoryList, setCategoryList] = useState([]);
@@ -12,9 +10,12 @@ const MenuListComponent = (props) => {
     const [clickCategory, setClickCategory] = useState(0);
     const categoryRef = useRef();
 
-    const getMenuList = async () => {
+    useEffect(() => {
+        getMenuListCall();
+    }, [])
+    const getMenuListCall = async () => {
         try{
-            const menuListRes = await axiosInstance.get(
+            const menuListRes = await getMenuList(
                 "/menu/list",
                 {
                         headers: {
@@ -22,7 +23,6 @@ const MenuListComponent = (props) => {
                         }
                     }
                 );
-            console.log("menuListRes : ", menuListRes)
             if (menuListRes.status === 200) {
                 if (menuListRes.data.res_code === "0000") {
                     setCategoryList(menuListRes.data.categorylist);
@@ -32,10 +32,10 @@ const MenuListComponent = (props) => {
                     alert(menuListRes.data.message)
                 }
             } else {
-                alert("api 통신 실패")
+                alert("오류")
             }
         } catch (e) {
-            alert("오류 : ", e.message)
+            alert("api 통신 실패")
         }
     }
 
@@ -48,15 +48,8 @@ const MenuListComponent = (props) => {
     }
 
     const menuOnClick = (menupkey, saleprice, menuname) => {
-        props.menuClick(menupkey, saleprice, menuname, 1);
+        props.menuOnClickHandler(menupkey, saleprice, menuname, 1);
     }
-
-    useEffect(() => {
-        getMenuList();
-        // return (() => {
-        //     getMenuList();
-        // })
-    }, [])
 
     return (
         <div className={"menuList-container"}>

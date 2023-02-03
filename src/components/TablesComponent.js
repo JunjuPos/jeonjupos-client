@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import axiosInstance from "../api/axiosClient";
+import {getTableList} from "../api/axiosClient";
 import "../css/tablesComponent.css";
 
 const TablesComponent = () => {
@@ -15,10 +15,7 @@ const TablesComponent = () => {
 
     const getSpaceList = async () => {
         try{
-            const spaceListRes = await axiosInstance.get(
-                "/space/list",
-                {headers: {jwt: `${localStorage.getItem("jwt")}`}}
-            );
+            const spaceListRes = await getTableList();
             if (spaceListRes.status === 200) {
                 if (spaceListRes.data.res_code === "0000") {
                     setSpaceList(spaceListRes.data.spacelist);
@@ -26,6 +23,7 @@ const TablesComponent = () => {
                     alert(setSpaceList.data.message)
                 }
             } else {
+                console.log(spaceListRes.status)
                 alert("api 통신 실패")
             }
         } catch (e) {

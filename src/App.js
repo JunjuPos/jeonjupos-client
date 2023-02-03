@@ -10,8 +10,6 @@ import {MyContext} from "./contexts/MyContext";
 const App = () => {
 
     const [storename, setStorename] = useState("");
-    // const []
-    console.log("로컬 스토리지")
 
     return (
         <MyContext.Provider value={{storename, setStorename}}>

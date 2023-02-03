@@ -1,14 +1,19 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/openComponent.css";
-import axiosInstance from "../api/axiosClient";
+import {getOwner} from "../api/axiosClient";
 // import {MyContext} from "../contexts/MyContext";
 
-const OpenComponent = () => {
+const LoginComponent = () => {
     const navigate = useNavigate();
 
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
+    localStorage.setItem("storename", "");
+    localStorage.setItem("openyn", "false")
+    localStorage.setItem("storeid", "");
+    localStorage.setItem("jwt", "");
+
     // const {setStorename} = useContext(MyContext);
 
     const tableNavigate = () => {
@@ -20,7 +25,7 @@ const OpenComponent = () => {
             id: id,
             password: password
         }
-        const result = await axiosInstance.post("/user/login", data);
+        const result = await getOwner(data);
         if (result.status === 200) {
             if (result.data.result === true) {
                 // 로그인 성공 시 localStorage setting
@@ -64,4 +69,4 @@ const OpenComponent = () => {
     )
 }
 
-export default OpenComponent;
+export default LoginComponent;

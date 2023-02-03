@@ -1,10 +1,10 @@
 import React from "react";
-import OpenComponent from "../components/OpenComponent";
+import LoginComponent from "../components/LoginComponent";
 
 const IndexPage = () => {
 
     return (
-        <OpenComponent/>
+        <LoginComponent/>
     )
 }
 
