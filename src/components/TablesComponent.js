@@ -8,6 +8,7 @@ const TablesComponent = () => {
 
     const orderNavigate = (e) => {
         navigate("/order", {state: e});
+        // navigate("/order", {state: {tableNo: e}});
     }
 
     const [spaceList, setSpaceList] = useState([]);

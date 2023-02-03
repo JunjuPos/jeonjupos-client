@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import {useNavigate} from "react-router-dom";
 import "../css/headerComponent.css";
 import {useLocation} from "react-router";
-import {MyContext} from "../contexts/MyContext";
+// import {MyContext} from "../contexts/MyContext";
 
 const HeaderComponent = () => {
 
@@ -10,8 +10,9 @@ const HeaderComponent = () => {
     const navigate = useNavigate();
 
     const homeOnClick = () => {
-        console.log(localStorage.getItem("openyn"));
         if (localStorage.getItem("openyn") === "true") {
+            //  정상 로그인 되면 openyn => true로 변경됨
+            //  로그인 전에는 해더 버튼 비활성
             navigate("/tables");
         }
     }

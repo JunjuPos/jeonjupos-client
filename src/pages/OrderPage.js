@@ -33,7 +33,6 @@ const OrderPage = () => {
                 jwt: `${localStorage.getItem("jwt")}`
             }
         });
-        console.log(result);
         if (result.status === 200) {
             if (result.data.res_code === "0000") {
                 setOrderList(result.data.orderlist);

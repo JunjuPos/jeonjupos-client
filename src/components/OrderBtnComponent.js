@@ -16,7 +16,7 @@ const OrderBtnComponent = (props) => {
         navigate("/tables");
     }
 
-    const {state} = useLocation();  // 주문테이블 고유번호
+    const {state} = useLocation();  // 주문테이블 고유번호                 // 테이블 고유번호
     const [newOrderList, setNewOrderList] = useState([]);
 
     const orderClick = async () => {

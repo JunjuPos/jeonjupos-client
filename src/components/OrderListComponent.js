@@ -11,7 +11,6 @@ import {useNavigate} from "react-router-dom";
  * @constructor
  */
 const OrderListComponent = (props) => {
-    const {state} = useLocation();  // 주문테이블 고유번호
     const [orderList, setOrderList] = useState(props.orderList);     // 주문내역
     const [newOrderList, setNewOrderList] = useState([]);     // 주문내역
     const [space, setSpace] = useState({});             // 테이블 정보

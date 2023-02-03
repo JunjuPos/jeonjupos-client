@@ -1,16 +1,15 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/openComponent.css";
 import axiosInstance from "../api/axiosClient";
-import {MyContext} from "../contexts/MyContext";
+// import {MyContext} from "../contexts/MyContext";
 
 const OpenComponent = () => {
-    localStorage.setItem("openyn", "false");
     const navigate = useNavigate();
 
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-    const {setStorename} = useContext(MyContext);
+    // const {setStorename} = useContext(MyContext);
 
     const tableNavigate = () => {
         navigate("/tables");
@@ -24,7 +23,7 @@ const OpenComponent = () => {
         const result = await axiosInstance.post("/user/login", data);
         if (result.status === 200) {
             if (result.data.result === true) {
-                // storename
+                // 로그인 성공 시 localStorage setting
                 // setStorename(result.data.data.storename);    // context
                 localStorage.setItem("storename", result.data.data.storename);
                 // storeid
@@ -32,7 +31,7 @@ const OpenComponent = () => {
                 // jwt
                 localStorage.setItem("jwt", result.data.data.jwt);
 
-                localStorage.setItem("openyn", "true");
+                localStorage.setItem("openyn", "true"); // 로그인 성공 시 openyn = true 로 변경
                 tableNavigate();
             } else {
                 alert(result.data.message)
@@ -60,13 +59,7 @@ const OpenComponent = () => {
                 <span>PS : </span>
                 <input type={"password"} className={"password-input"} onChange={(e) => {passwordHandler(e)}}></input>
             </div>
-            {/*<br/>*/}
-            <button
-                id={"login-btn"}
-                onClick={loginBtnHandler}
-            >
-                오픈
-            </button>
+            <button id={"login-btn"} onClick={loginBtnHandler}>로그인</button>
         </div>
     )
 }
