@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {useLocation} from "react-router";
 import OrderListComponent from "../components/OrderListComponent";
 import MenuListComponent from "../components/MenuListComponent";
@@ -23,24 +23,21 @@ const OrderPage = (props) => {
     });
     const [orderList, setOrderList] = useState([]);
     const [newSalePrice, setNewSalePrice] = useState(0);
-    // let newSalePrice = 0;
 
     useEffect( () => {
         getOrderListCall();
-    }, [])
+    }, []);
 
     const getOrderListCall = async () => {
         try{
             let result = await getOrderList(state);
-            console.log(result);
             if (result.status === 200) {
                 if (result.data.res_code === "0000") {
                     const getOrderList = result.data.orderlist;
                     const getSpace = result.data.space;
-                    if (getSpace !== null && getOrderList.length > 0) {
-                        setOrderList(getOrderList);
-                        setSpace(getSpace)
-                    }
+
+                    if (getOrderList.length > 0) setOrderList(getOrderList);
+                    if (getSpace !== null) setSpace(getSpace)
                 } else {
                     alert("에러");
                 }
@@ -51,6 +48,48 @@ const OrderPage = (props) => {
                 navigate("/");
             }
         }
+    }
+
+    const orderHandler = async () => {
+        // 주문
+        const data = {
+            spacepkey: parseInt(localStorage.getItem("spacepkey")),
+            orderinfopkey: space.orderinfopkey,
+            ordermenulist: orderList,
+            takeoutyn: false,
+            firstorderyn: space.orderinfopkey === 0     // 0이면 최초주문 아니면 재주문
+        }
+
+        try{
+            const orderRes = await order(data);
+            if (orderRes.data.res_code === "0000") {
+                navigate("/tables");
+            } else {
+                alert(orderRes.data.message);
+            }
+        } catch (err) {
+            alert(err.response.data.message);
+            if (err.response.status === 401) {
+                navigate("/");
+            }
+        }
+    }
+
+    const orderListInit = () => {
+        // 전체취소
+        // orderList.map((item) => {return item.cancelyn = false});
+        setOrderList(orderList.map((item) => {
+            return {...item, cancelyn: true}
+        }));
+        setNewSalePrice(0);
+    }
+
+    const orderListChoiceInit = (menupkey) => {
+        // 선택취소
+        const idx = orderList.findIndex((item) => item.menupkey === menupkey);
+        orderList[idx].cancelyn = true;
+        setNewSalePrice(newSalePrice - orderList[idx].saleprice);
+        setOrderList([...orderList]);
     }
 
     const menuOnClickHandler = (menupkey, saleprice, menuname, count) => {
@@ -71,36 +110,11 @@ const OrderPage = (props) => {
                         menuname: menuname,
                         count: count,
                         totalsaleprice: saleprice * count,
-                        ordermenupkey: 0
+                        ordermenupkey: 0,
+                        cancelyn: false
                     }
                 ]
             )
-        }
-    }
-
-    const orderHandler = async () => {
-        // 주문
-        console.log("spacepkey : ", space.spacepkey);
-        console.log("orderinfopkey : ", space.orderinfopkey);
-        console.log("orderList : ", orderList);
-
-        const data = {
-            spacepkey: parseInt(localStorage.getItem("spacepkey")),
-            orderinfopkey: space.orderinfopkey,
-            ordermenulist: orderList,
-            takeoutyn: false,
-            firstorderyn: space.orderinfopkey === 0     // 0이면 최초주문 아니면 재주문
-        }
-
-        try{
-            const orderRes = await order(data);
-            console.log("orderRes : ", orderRes)
-            if (orderRes.status === 200) {
-                navigate("/tables");
-            }
-        } catch (err) {
-            console.log(err);
-            alert(err.response.data.message);
         }
     }
 
@@ -109,21 +123,23 @@ const OrderPage = (props) => {
         const idx = orderList.findIndex((item) => item.menupkey === menupkey);
         if (idx > -1) {
             if (type === "plus") {
+                //  수량 +1
                 orderList[idx].count += 1
                 orderList[idx].totalsaleprice = orderList[idx].saleprice * orderList[idx].count;
                 setNewSalePrice(newSalePrice + orderList[idx].saleprice);
                 setOrderList([...orderList]);
             } else {
+                //  수량 -1
                 setNewSalePrice(newSalePrice - orderList[idx].saleprice);
                 if (orderList[idx].count > 1) {
+                    //  수량 -1
                     orderList[idx].count = orderList[idx].count - 1
                     orderList[idx].totalsaleprice = orderList[idx].saleprice * orderList[idx].count;
                     setOrderList([...orderList]);
-                } else if (orderList[idx].count === 1) {
-                    orderList.splice(idx, 1)
-                    setOrderList([...orderList]);
                 } else {
-                    orderList.splice(idx, 1)
+                    //  주문 메뉴 리스트에서 제거
+                    // orderList.splice(idx, 1)
+                    orderList[idx].cancelyn = true;
                     setOrderList([...orderList]);
                 }
             }
@@ -136,6 +152,8 @@ const OrderPage = (props) => {
                 <OrderListComponent
                     orderList={orderList}
                     countCntOnClickHandler={countCntOnClickHandler}
+                    orderListInit={orderListInit}
+                    orderListChoiceInit={orderListChoiceInit}
                 />
                 <AmountDashBoardComponent
                     space={space}
@@ -148,6 +166,9 @@ const OrderPage = (props) => {
                 />
                 <OrderBtnComponent
                     orderHandler={orderHandler}
+                    space={space}
+                    newSalePrice={newSalePrice}
+                    orderList={orderList}
                 />
             </div>
         </div>

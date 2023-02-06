@@ -11,7 +11,6 @@ const TablesComponent = () => {
     const orderNavigate = (spacenum, spacepkey) => {
         localStorage.setItem("spacepkey", spacepkey.toString())
         navigate("/order", {state: spacenum});
-        // navigate("/order", {state: {tableNo: e}});
     }
 
     const [spaceList, setSpaceList] = useState([]);
@@ -19,7 +18,6 @@ const TablesComponent = () => {
     const getSpaceList = async () => {
         try{
             const spaceListRes = await getTableList();
-            console.log(spaceListRes);
             if (spaceListRes.status === 200) {
                 if (spaceListRes.data.res_code === "0000") {
                     setSpaceList(spaceListRes.data.spacelist);
@@ -29,22 +27,23 @@ const TablesComponent = () => {
             } else {
                 alert("api 통신 실패")
             }
-        } catch (e) {
-            alert("오류 : ", e.message)
+        } catch (err) {
+            alert(err.response.data.message);
+            if (err.response.status === 401) {
+                navigate("/");
+            }
         }
     }
 
     useEffect(() => {
         getSpaceList();
-        // return (() => {
-        //     getSpaceList();
-        // })
     }, []);
 
     return (
         <div className={"space-container"}>
             {
                 spaceList.map((table) => {
+                    console.log("table : ", table);
                     return (
                         <div
                             className={"space-card spaceCard" + table.spacenum.toString()}
@@ -52,7 +51,7 @@ const TablesComponent = () => {
                             onClick={(e) => {orderNavigate(table.spacenum, table.spacepkey)}}
                         >
                             <p className={"tableNum"} id={"tableNum" + table.spacenum} key={"tableNum" + table.spacenum}>
-                                {table.spacenum}
+                                {table.spacenum} {table.eatingyn === 1? "식사중": "비어있음"}
                             </p>
                             <div className={"space-card-body"}>
                                 <div className={"menuCard"}>

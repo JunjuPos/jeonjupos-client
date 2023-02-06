@@ -1,12 +1,11 @@
 .board-container {
     display: flex;
-    margin-top: 10px;
-    height: 52%;
+    margin-top: 0px;
+    height: 53.4%;
 }
 
 .AmountDashBoard-container {
     flex: 1;
-    border: 1px solid black;
     width: 100%;
     height: 100%;
     margin-right: 10px;
@@ -51,7 +50,7 @@
     flex: 1;
     width: 100%;
     height: 100%;
-    background-color: darkgray;
+    background-color: #404663;
     border-radius: 10px;
     box-shadow:
             0px 1.7px 2.2px rgba(0, 0, 0, 0.02),
@@ -63,12 +62,13 @@
 }
 
 .numberBoard-container > input {
-    width: 95%;
-    height: 44px;
+    width: 92%;
+    height: 10%;
     font-size: 20px;
     margin-bottom: 2px;
     border-radius: 10px;
     background-color: white;
+    text-align: right;
 }
 
 .numberBoard {
@@ -78,11 +78,12 @@
 }
 
 .numberBoard > button {
-    width: 31.7%;
-    margin: 2px 2px 0 2px;
-    height: 54px;
+    width: 30%;
+    height: 7.73vh;
+    margin: 2px 4px 2px 4px;
+    /*height: 54px;*/
     border-radius: 10px;
-    background-color: black;
+    background-color: #3a4165;
     color: white;
     font-size: 20px;
 }

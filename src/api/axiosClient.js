@@ -79,4 +79,12 @@ export const getTableList = async () => {
     );
 }
 
+export const pay = async (data) => {
+    return await axiosClient.post(
+        "/payment",
+        data,
+        {headers: {jwt: `${localStorage.getItem("jwt")}`}}
+    );
+}
+
 // module.exports = getAPI;

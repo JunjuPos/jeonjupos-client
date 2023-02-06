@@ -47,6 +47,16 @@
     overflow: auto;
 }
 
+.menuCard::-webkit-scrollbar {
+    background-color: #404663;
+    width: 10px
+}
+
+.menuCard::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+}
+
 .menuCard > div {
     display: flex;
 }

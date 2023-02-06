@@ -3,30 +3,40 @@ import "../css/amountDashBoardComponent.css"
 
 const AmountDashBoardComponent = (props) => {
 
+    useEffect(() => {
+        sessionStorage.setItem("reqPayPrice", 0);
+    }, []);
+
     const [number, setNumber] = useState(0);
 
-    const numberBtnItems = [0, 1, 2, 3, 4 ,5 ,6 ,7 ,8 ,9]
-    const controllerBtnItems = ['C', '<', 'Enter']
+    const numberBtnItems = [1, 2, 3, 4 ,5 ,6 ,7 ,8 ,9, 0, "00"]
+    const controllerBtnItems = ['C', '<', 'Enter', '전체']
 
     const numBtnHandler = (e) => {
         const num = e.target.value.toString();
+        sessionStorage.setItem("reqPayPrice", parseInt(number + num));
         setNumber(parseInt(number+num));
     }
 
     const ctnBtnHandler = (e) => {
         const ctn = e.target.value;
-        // if (ctn === "C") {
-        //     setNumber("");
-        // } else if (ctn === "<") {
-        //     // console.log("parseInt(number.slice(0, -1)) : ", parseInt(number.slice(0, -1)));
-        //     if (number.toString().length > 1) {
-        //         setNumber(parseInt(number.toString().slice(0, -1)));
-        //     } else {
-        //         setNumber(0);
-        //     }
-        // } else {
-        //
-        // }
+        if (ctn === "C") {
+            sessionStorage.setItem("reqPayPrice", 0);
+            setNumber(0);
+        } else if (ctn === "<") {
+            if (number.toString().length > 1) {
+                sessionStorage.setItem("reqPayPrice", parseInt(number.toString().slice(0, -1)));
+                setNumber(parseInt(number.toString().slice(0, -1)));
+            } else {
+                sessionStorage.setItem("reqPayPrice", 0);
+                setNumber(0);
+            }
+        } else if (ctn === "전체") {
+            sessionStorage.setItem("reqPayPrice", props.space.totalSalePrice + props.newSalePrice);
+            setNumber(props.space.totalSalePrice + props.newSalePrice);
+        } else {
+
+        }
     }
 
     return (
@@ -34,7 +44,7 @@ const AmountDashBoardComponent = (props) => {
             <div className={"AmountDashBoard-container"}>
                 <div className={"orderTotalPrice"}>
                     <p className={"orderTotalPrice-title"}>총 금 액</p>
-                    <p className={"orderTotalPrice-item"}>{props.space.totalSalePrice.toLocaleString()}</p>
+                    <p className={"orderTotalPrice-item"}>{(props.space.totalSalePrice + props.newSalePrice).toLocaleString()}</p>
                 </div>
                 <div className={"orderTotalPrice"}>
                     <p className={"orderTotalPrice-title"}>추가주문 금액</p>
@@ -54,7 +64,7 @@ const AmountDashBoardComponent = (props) => {
                 </div>
             </div>
             <div className={"numberBoard-container"}>
-                <input value={number.toLocaleString()}/>
+                <input value={number.toLocaleString()} placeholder={"결제할 금액을 입력해주세요."}/>
                 <div className={"numberBoard"}>
                     {
                         numberBtnItems.map((item, index) => {

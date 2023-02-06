@@ -10,7 +10,7 @@
 .company {
     flex: 0.3;
     font-size: 30px;
-    line-height: 110%;
+    line-height: 150%;
     font-family: "Gill Sans", sans-serif;;
     color: white;
 }
@@ -62,13 +62,13 @@
 }
 
 .date {
-    font-size: 15px;
+    font-size: 80%;
     color: white;
     margin-right: 10px;
 }
 
 .time {
     line-height: 150%;
-    font-size: 20px;
+    font-size: 130%;
     color: orange;
 }

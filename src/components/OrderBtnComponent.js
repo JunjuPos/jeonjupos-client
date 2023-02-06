@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {
-    order,
-    reOrder
+    pay
 } from "../api/axiosClient";
 import {useLocation} from "react-router";
 import {useNavigate} from "react-router-dom";
@@ -25,9 +24,36 @@ const OrderBtnComponent = (props) => {
         navigate("/tables");
     }
 
-    const payClick = async () => {
+    const payClick = async (type) => {
+        alert(type)
+        const orderList = props.orderList;
+        const space = props.space;
+        const newSalePrice = props.newSalePrice;
+        const reqPayPrice = sessionStorage.getItem("reqPayPrice");
 
+        const data = {
+            orderinfopkey: space.orderinfopkey,
+            reqPayPrice: reqPayPrice,
+            type: "cash"
+        }
+
+        try{
+            const result = await pay(data);
+            console.log("pay result : ", result);
+        } catch (err) {
+            console.log(err);
+            alert(err.response.data.message);
+            if (err.response.status === 401) {
+                navigate("/");
+            }
+        }
+
+        console.log("data : ", data);
     }
+
+    // const cardPayClick = async () => {
+    //
+    // }
 
     return (
         <div className={"submitBtn-container"}>
@@ -37,11 +63,14 @@ const OrderBtnComponent = (props) => {
             <button onClick={orderCancelClick}>
                 취소
             </button>
-            <button onClick={payClick}>
-                결제
+            <button onClick={(e) => payClick('cash')}>
+                현금결제
             </button>
-            <button>
-                부분결제
+            <button onClick={(e) => payClick('card')}>
+                카드결제
+            </button>
+            <button onClick={(e) => payClick('deferred')}>
+                후불결제
             </button>
         </div>
     )

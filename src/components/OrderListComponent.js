@@ -17,7 +17,6 @@ const OrderListComponent = (props) => {
         navigate("/tables");
     }
 
-    // console.log("props : ", props)
     const [totalCount, setTotalCount] = useState(0);
     const [totalSalePrice, setTotalSalePrice] = useState(0);
     const [menupkey, setMenupkey] = useState(0);
@@ -26,10 +25,18 @@ const OrderListComponent = (props) => {
     useEffect(() => {
         //  props.orderList, props.newOrderList 변경 시 실행
 
-        const totalSalePriceArr = props.orderList.map((item) => item.totalsaleprice);
+        const totalSalePriceArr = props.orderList.map((item) => {
+            if (item.cancelyn === false) {
+                return item.totalsaleprice
+            }
+        }).filter(element => element);
         setTotalSalePrice(totalSalePriceArr.reduce((acc, cur) => {return acc + cur}, 0));
 
-        const totalCountArr = props.orderList.map((item) => item.count);
+        const totalCountArr = props.orderList.map((item) => {
+            if (item.cancelyn === false) {
+                return item.count
+            }
+        }).filter(element => element);
         setTotalCount(totalCountArr.reduce((acc, cur) => {return acc + cur}, 0));
 
     }, [props.orderList])
@@ -59,19 +66,21 @@ const OrderListComponent = (props) => {
             <div className={"orderList"}>
                 {
                     props.orderList.map((order, index) => {
-                        return (
-                            <div
-                                id={index}
-                                className={'orderList-row order order-card' + (index === parseInt(orderCardActive) ? '-active': "")}
-                                onClick={(e) => {orderClickHandler(e, order.ordermenupkey, order.menupkey)}}
-                            >
-                                <p className={"orderList-item"}>{index+1}</p>
-                                <p className={"orderList-item"}>{order.menuname}</p>
-                                <p className={"orderList-item"}>{order.count}</p>
-                                <p className={"orderList-item"}>{order.saleprice.toLocaleString()}</p>
-                                <p className={"orderList-item"}>{(order.saleprice * order.count).toLocaleString()}</p>
-                            </div>
-                        )
+                        if (order.cancelyn === false) {
+                            return (
+                                <div
+                                    id={index}
+                                    className={'orderList-row order order-card' + (index === parseInt(orderCardActive) ? '-active': "")}
+                                    onClick={(e) => {orderClickHandler(e, order.ordermenupkey, order.menupkey)}}
+                                >
+                                    <p className={"orderList-item"}>{index+1}</p>
+                                    <p className={"orderList-item"}>{order.menuname}</p>
+                                    <p className={"orderList-item"}>{order.count}</p>
+                                    <p className={"orderList-item"}>{order.saleprice.toLocaleString()}</p>
+                                    <p className={"orderList-item"}>{(order.saleprice * order.count).toLocaleString()}</p>
+                                </div>
+                            )
+                        }
                     })
                 }
             </div>
@@ -82,8 +91,8 @@ const OrderListComponent = (props) => {
                 <p className={"total-price"}>{totalSalePrice.toLocaleString()}</p>
             </div>
             <div className={"countController-container"}>
-                <button className={""}>전체취소</button>
-                <button className={""}>선택취소</button>
+                <button className={""} onClick={(e) => props.orderListInit()}>전체취소</button>
+                <button className={""} onClick={(e) => props.orderListChoiceInit(menupkey)}>선택취소</button>
                 <button className={"countController-plus"} onClick={(e) => countOnClick("plus")}>+</button>
                 <button className={"countController-minus"} onClick={(e) => countOnClick("minus")}>-</button>
             </div>
