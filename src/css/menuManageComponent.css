@@ -1,40 +1,92 @@
 
 
 .menu-manage-container {
-    height: 94.7vh;
-    border: 1px solid black;
-    background-color: #404663;
+    /*height: 94.0vh;*/
+    /*border: 1px solid black;*/
+    /*background-color: #404663;*/
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .menucategory-list-container {
+    width: 90%;
     margin-top: 10px;
     display: flex;
-    background-color: white;
+    margin-right: auto;
+    margin-left: auto;
+    border: none;
 }
 
-.menucategory-list-container > p {
+.menucategory-list-container > button {
     margin: 0;
     flex: 1;
     text-align: center;
-    border-right: 1px solid black;
     height: 30px;
-    line-height: 170%;
-    font-size: 20px;
+    line-height: 140%;
+    font-size: 130%;
+    border: none;
+    margin-right: 10px;
+    background-color: #404663;
+    color: white;
+    border-radius: 10px;
 }
 
-.menucategory-list-container > p:last-child {
-    border-right: none;
+.menucategory-list-container > button:hover {
+    background-color: white;
+    color: #404663;
+}
+
+.menucategory-list-container > button:last-child {
+    margin-right: 0;
 }
 
 .menu-list-container {
+    width: 90%;
     margin-top: 5px;
-    width: 100%;
-    background-color: white;
-    /*border: 1px solid black;*/
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.menu-list-container > tr {
-    height: 5px;
+.menu-title {
+    height: 40px;
+}
+
+.menu-title > th {
+    font-size: 13px;
+    /*border-top: 1px solid black;*/
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    color: white;
+    background-color: #404663;
+}
+
+.menu-title > th:first-child {
+    /*border-left: 1px solid black;*/
+}
+
+.menu-title > th:last-child {
+    border-right: none;
+}
+
+.menu-card {
+    text-align: center;
+    border-bottom: 1px solid white;
+    color: #404663;
+    background-color: white;
+}
+
+.menu-card:hover {
+    background-color: #404663;
+    color: white;
+}
+
+.menu-card > td {
+    border-right: 1px solid white;
+}
+
+.menu-card > td:last-child {
+    border-right: none;
 }
 
 .name {
@@ -42,17 +94,17 @@
 }
 
 .amount {
-    width: 10%;
+    width: 7%;
 }
 
 .checkbox {
-    width: 10%;
+    width: 7%;
 }
 
-.menu-list-container > th {
-    text-align: center;
-}
+/*.menu-list-container > th {*/
+/*    text-align: center;*/
+/*}*/
 
-.menu-list-container > tr > td {
-    text-align: center;
-}
+/*.menu-list-container > tr > td {*/
+/*    text-align: center;*/
+/*}*/

@@ -9,7 +9,6 @@ const CalendarComponent = () => {
 
     useEffect(() => {
         //  날짜 기간 선택 시
-        console.log("value : ", value);
     }, [value])
 
     return (

@@ -6,14 +6,44 @@ import Calendar from "react-calendar";
 import {
     getSaleList
 } from "../api/axiosClient";
+import {useNavigate} from "react-router-dom";
 
 
 const SaleManageComponent = () => {
+
+    const navigate = useNavigate();
 
     const [calendarViewYn, setCalendarViewYn] = useState(false);
     const [startDate, setStartDate] = useState((new Date()).toISOString());
     const [endDate, setEndDate] = useState((new Date()).toISOString());
     const [saleList, setSaleList] = useState([]);
+    const [searchPostPaidName, setSearchPostPaidName] = useState("");
+    const [searchMenuName, setSearchMenuName] = useState("");
+    const [totalPayPrice, setTotalPayPrice] = useState(0);
+    const [totalSalePrice, setTotalSalePrice] = useState(0);
+    const [totalCashPayPrice, setTotalCashPayPrice] = useState(0);
+    const [totalCardPayPrice, setTotalCardPayPrice] = useState(0);
+    const [totalDeferredPayPrice, setTotalDeferredPayPrice] = useState(0);
+    const [totalExpectedRestPrice, setTotalExpectedRestPrice] = useState(0);
+
+    const getSaleHandler = async () => {
+        setCalendarViewYn(false);
+        try{
+            const result = await getSaleList(startDate, endDate, searchPostPaidName, searchMenuName);
+            setSaleList(result.data.data.saleList);
+            setTotalPayPrice(result.data.data.totalpayprice);
+            setTotalSalePrice(result.data.data.totalsaleprice);
+            setTotalCashPayPrice(result.data.data.totalcashpayprice);
+            setTotalCardPayPrice(result.data.data.totalcardpayprice);
+            setTotalDeferredPayPrice(result.data.data.totaldeferredpayprice);
+            setTotalExpectedRestPrice(result.data.data.totalexpectedrestprice);
+        } catch (err) {
+            alert(err.response.data.message);
+            if (err.response.status === 401) {
+                navigate("/");
+            }
+        }
+    }
 
     const calendarViewHandler = () => {
         if (calendarViewYn === true) {
@@ -33,7 +63,7 @@ const SaleManageComponent = () => {
     }
 
     useEffect(() => {
-        initSaleList();
+        getSaleHandler();
     }, [])
 
     useEffect(() => {
@@ -57,13 +87,6 @@ const SaleManageComponent = () => {
         }
 
         setEndDate(today.toISOString());
-    }
-
-    const getSaleHandler = async () => {
-        setCalendarViewYn(false);
-        const result = await getSaleList(startDate, endDate);
-        console.log(result.data.data);
-        setSaleList(result.data.data.saleList);
     }
 
     const leftPad = (value) => {
@@ -91,6 +114,17 @@ const SaleManageComponent = () => {
         return [year, month, day].join(delimiter);
     }
 
+    /**
+     * 후불명부, 메뉴명 검색
+     */
+    const searchPostPaidOnChangeHandler = (e) => {
+        setSearchPostPaidName(e.currentTarget.value);
+    }
+
+    const searchMenuNameOnchangeHandler = (e) => {
+        setSearchMenuName(e.currentTarget.value);
+    }
+
     return (
         <div className={"sale-manage-container"}>
             <div className={"button-container"}>
@@ -101,8 +135,6 @@ const SaleManageComponent = () => {
                 <input className={"date-input"} value={toSelectStringByFormatting(startDate)} onClick={(e) => {calendarViewHandler()}}/>
                 ~
                 <input className={"date-input"} value={toSelectStringByFormatting(endDate)} onClick={(e) => {calendarViewHandler()}}/>
-                <button onClick={getSaleHandler}>조회</button>
-
                 {
                     calendarViewYn === true? <Calendar
                         onChange={onChange}
@@ -114,7 +146,11 @@ const SaleManageComponent = () => {
                     >
                     </Calendar>: <></>
                 }
-
+            </div>
+            <div className={"search-container"}>
+                <input className={""} type={"text"} value={searchPostPaidName} placeholder={"후불명부"} onChange={(e) => {searchPostPaidOnChangeHandler(e)}}/>
+                <input className={""} type={"text"} value={searchMenuName} placeholder={"메뉴명"} onChange={(e) => {searchMenuNameOnchangeHandler(e)}}/>
+                <button className={"search-btn"} onClick={getSaleHandler}>조회</button>
             </div>
             <table className={"sale-list-container"}>
                 <tr className={"sale-title"}>
@@ -123,10 +159,11 @@ const SaleManageComponent = () => {
                     <th className={"paycompleteyn"}>결제여부</th>
                     <th className={"totalsaleprice"}>주문금액</th>
                     <th className={"totalpayprice"}>결제금액</th>
-                    <th className={"cardpayprice"}>카드결제금액</th>
                     <th className={"cashpayprice"}>현금결제금액</th>
+                    <th className={"cardpayprice"}>카드결제금액</th>
                     <th className={"deferredpayprice"}>후불결제금액</th>
                     <th className={"expectedrestprice"}>남은금액</th>
+                    <th className={"menuname"}>주문메뉴</th>
                 </tr>
                 {
                     saleList.map((item) => {
@@ -134,17 +171,30 @@ const SaleManageComponent = () => {
                             <tr className={"sale-card"}>
                                 <td>{toStringByFormatting(item.regdate)}</td>
                                 <td>{toStringByFormatting(item.paydate)}</td>
-                                <td><input type={"checkbox"} id={item.paycompleteyn} name={""} disabled checked={item.paycompleteyn}/></td>
+                                <td><input className={"paycompleteyn-input input"} type={"checkbox"} id={item.paycompleteyn} name={""} disabled checked={item.paycompleteyn}/></td>
                                 <td>{item.totalsaleprice.toLocaleString()}</td>
                                 <td>{item.totalpayprice.toLocaleString()}</td>
-                                <td>{item.cardpayprice.toLocaleString()}</td>
                                 <td>{item.cashpayprice.toLocaleString()}</td>
+                                <td>{item.cardpayprice.toLocaleString()}</td>
                                 <td>{item.deferredpayprice.toLocaleString()}</td>
                                 <td>{item.expectedrestprice.toLocaleString()}</td>
+                                <td><p className={"sale-card-menuname"}>{item.menuname}</p></td>
                             </tr>
                         )
                     })
                 }
+                <tr className={"total-price-row"}>
+                    <td>총합계</td>
+                    <td></td>
+                    <td></td>
+                    <td className={"total-price-card"}>{totalSalePrice.toLocaleString()}</td>
+                    <td className={"total-price-card"}>{totalPayPrice.toLocaleString()}</td>
+                    <td className={"total-price-card"}>{totalCashPayPrice.toLocaleString()}</td>
+                    <td className={"total-price-card"}>{totalCardPayPrice.toLocaleString()}</td>
+                    <td className={"total-price-card"}>{totalDeferredPayPrice.toLocaleString()}</td>
+                    <td className={"total-price-card"}>{totalExpectedRestPrice.toLocaleString()}</td>
+                    <td></td>
+                </tr>
             </table>
         </div>
     )

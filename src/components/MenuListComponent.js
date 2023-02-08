@@ -15,14 +15,7 @@ const MenuListComponent = (props) => {
     }, [])
     const getMenuListCall = async () => {
         try{
-            const menuListRes = await getMenuList(
-                "/menu/list",
-                {
-                        headers: {
-                            jwt: `${localStorage.getItem("jwt")}`
-                        }
-                    }
-                );
+            const menuListRes = await getMenuList();
             if (menuListRes.status === 200) {
                 if (menuListRes.data.res_code === "0000") {
                     setCategoryList(menuListRes.data.categorylist);

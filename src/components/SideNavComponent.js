@@ -15,7 +15,6 @@ const SideNavComponent = () => {
     ]
 
     const sideMenuOnClickHandler = (e) => {
-        console.log(e.currentTarget.id);
         const id = e.currentTarget.id;
         if (id === "menu-manage") {
             navigate("/menu/manage");
