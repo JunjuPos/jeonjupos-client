@@ -1,0 +1,33 @@
+.react-calendar {
+    position: absolute;
+    margin-left: 60%;
+}
+
+.react-calendar__tile--now {
+    background: black;
+    color: white;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+    color: gray;
+}
+
+.react-calendar__navigation__label > span {
+    font-size:  5px;
+    font-weight: 20;
+    color: black;
+}
+
+/*.react-calendar__month-view__weekdays {*/
+/*    background: white;*/
+/*}*/
+
+.react-calendar__month-view__weekdays > abbr { /*월,화,수... 글자 부분*/
+    background-color: black;
+    color: gray;
+    font-size: 1.4rem;
+    font-weight: 100;
+}
+
+

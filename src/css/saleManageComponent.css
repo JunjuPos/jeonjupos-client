@@ -1,0 +1,94 @@
+.sale-manage-container {
+    width: 100%;
+}
+
+.button-container {
+    text-align: right;
+    margin-right: 100px;
+    margin-top: 10px;
+}
+
+.button-container > button {
+    width: 100px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.button-container > button:last-child {
+    margin-right: 0;
+}
+
+.date-input {
+    width: 70px;
+}
+
+.sale-list-container {
+    width: 90%;
+    margin-top: 5px;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sale-title > th {
+    font-size: 13px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    background-color: gray;
+    color: white;
+}
+
+.sale-title > th:first-child {
+    border-left: 1px solid black;
+}
+
+.sale-card {
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.sale-card > td {
+    font-size: 15px;
+    border-right: 1px solid black;
+}
+
+.sale-card > td:first-child {
+    border-left: 1px solid black;
+}
+
+.regdate {
+    width: 20%;
+}
+
+.paydate {
+    width: 20%;
+}
+
+.paycompleteyn {
+    width: 5%;
+}
+
+.totalsaleprice {
+    width: 10%;
+}
+
+.totalpayprice {
+    width: 10%;
+}
+
+.cardpayprice {
+    width: 10%;
+}
+
+.cashpayprice {
+    width: 10%;
+}
+
+.deferredpayprice {
+    width: 10%;
+}
+
+.expectedrestprice {
+    width: 10%;
+}

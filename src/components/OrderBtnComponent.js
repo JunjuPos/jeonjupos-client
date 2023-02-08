@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
-import axiosInstance from "../api/axiosClient";
+import {
+    pay
+} from "../api/axiosClient";
 import {useLocation} from "react-router";
 import {useNavigate} from "react-router-dom";
 import "../css/orderBtnComponent.css"
@@ -12,63 +14,59 @@ const OrderBtnComponent = (props) => {
 
     const navigate = useNavigate();
 
-    const tablePageMove = () => {
-        navigate("/tables");
-    }
-
     const {state} = useLocation();  // 주문테이블 고유번호
-    const [newOrderList, setNewOrderList] = useState([]);
 
     const orderClick = async () => {
-
-        // 첫 주문, 재주문 분기처리
-        if (props.firstOrderYn === true) {
-            // 첫 주문
-            const data = {
-                spacepkey: state,
-                ordermenulist: newOrderList,
-                takeoutyn: false
-            }
-            const result = await axiosInstance.post("/order", data);
-            if (result.status === 200) {
-                tablePageMove();
-            } else {
-                alert("오류");
-                tablePageMove();
-            }
-        } else {
-            // 재주문
-
-            const data = {
-                orderinfopkey: props.space.orderinfopkey,
-                orderList: props.orderList,
-                newOrderList: props.newOrderList
-            }
-            const reOrder = await axiosInstance.post("/order/re", data);
-            if (reOrder.status === 200) {
-                tablePageMove();
-            } else {
-                alert("오류");
-                tablePageMove();
-            }
-        }
+        props.orderHandler();
     }
 
     const orderCancelClick = async () => {
-        // 주문취소
-        tablePageMove();
+        navigate("/tables");
     }
 
-    const payClick = async () => {
+    const payClick = async (type) => {
+        const orderList = props.orderList;
+        const space = props.space;
+        const newSalePrice = props.newSalePrice;
+        const reqPayPrice = sessionStorage.getItem("reqPayPrice");
 
+        console.log("newSalePrice : ", newSalePrice);
+
+        if (newSalePrice > 0) {
+            alert("주문후에 결제를 진행해주세요.");
+            return true;
+        }
+
+        if (reqPayPrice === "0" || reqPayPrice === "") {
+            alert("결제 금액을 입력해주세요");
+            return true;
+        }
+
+        const data = {
+            orderinfopkey: space.orderinfopkey,
+            reqPayPrice: reqPayPrice,
+            type: type,
+            spacepkey: space.spacepkey
+        }
+
+        try{
+            alert("api 요청");
+            const result = await pay(data);
+            navigate("/tables");
+        } catch (err) {
+            console.log(err);
+            alert(err.response.data.message);
+            if (err.response.status === 401) {
+                navigate("/");
+            }
+        }
+
+        console.log("data : ", data);
     }
 
-    useEffect(() => {
-        setNewOrderList(props.newOrderList);
-        // return (() => {
-        //     setNewOrderList(props.newOrderList);
-        // })
-    }, [props.newOrderList])
+    // const cardPayClick = async () => {
+    //
+    // }
 
     return (
         <div className={"submitBtn-container"}>
@@ -78,11 +76,14 @@ const OrderBtnComponent = (props) => {
             <button onClick={orderCancelClick}>
                 취소
             </button>
-            <button onClick={payClick}>
-                결제
+            <button onClick={(e) => payClick('cash')}>
+                현금결제
             </button>
-            <button>
-                부분결제
+            <button onClick={(e) => payClick('card')}>
+                카드결제
+            </button>
+            <button onClick={(e) => payClick('deferred')}>
+                후불결제
             </button>
         </div>
     )

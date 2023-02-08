@@ -1,0 +1,58 @@
+
+
+.menu-manage-container {
+    height: 94.7vh;
+    border: 1px solid black;
+    background-color: #404663;
+}
+
+.menucategory-list-container {
+    margin-top: 10px;
+    display: flex;
+    background-color: white;
+}
+
+.menucategory-list-container > p {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid black;
+    height: 30px;
+    line-height: 170%;
+    font-size: 20px;
+}
+
+.menucategory-list-container > p:last-child {
+    border-right: none;
+}
+
+.menu-list-container {
+    margin-top: 5px;
+    width: 100%;
+    background-color: white;
+    /*border: 1px solid black;*/
+}
+
+.menu-list-container > tr {
+    height: 5px;
+}
+
+.name {
+    width: 20%;
+}
+
+.amount {
+    width: 10%;
+}
+
+.checkbox {
+    width: 10%;
+}
+
+.menu-list-container > th {
+    text-align: center;
+}
+
+.menu-list-container > tr > td {
+    text-align: center;
+}
