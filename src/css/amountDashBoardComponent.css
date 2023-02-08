@@ -1,12 +1,24 @@
+.board-container {
+    display: flex;
+    margin-top: 0px;
+    height: 53.4%;
+}
+
 .AmountDashBoard-container {
     flex: 1;
-    border: 1px solid black;
     width: 100%;
-    height: 314px;
+    height: 100%;
     margin-right: 10px;
     border-radius: 10px;
-    background-color: #140346;
+    background-color: #404663;
     color: #e0dbdb;
+    box-shadow:
+            0px 1.7px 2.2px rgba(0, 0, 0, 0.02),
+            0px 4px 5.3px rgba(0, 0, 0, 0.028),
+            0px 7.5px 10px rgba(0, 0, 0, 0.035),
+            0px 13.4px 17.9px rgba(0, 0, 0, 0.042),
+            0px 25.1px 33.4px rgba(0, 0, 0, 0.15),
+            0px 60px 80px rgba(0, 0, 0, 0.3);
 }
 
 .orderTotalPrice {
@@ -21,9 +33,9 @@
 .orderTotalPrice-title {
     text-align: left;
     flex: 1;
-    font-size: 20px;
+    font-size: 15px;
     margin: 5px 0 0 30px;
-    line-height: 280%;
+    line-height: 400%;
 }
 
 .orderTotalPrice-item {
@@ -34,25 +46,29 @@
     line-height: 280%;
 }
 
-.newOrderList-row {
-    /*background-color: darkgray;*/
-}
-
 .numberBoard-container {
     flex: 1;
     width: 100%;
-    border: 1px solid #8c8a8a;
-    background-color: darkgray;
+    height: 100%;
+    background-color: #404663;
     border-radius: 10px;
+    box-shadow:
+            0px 1.7px 2.2px rgba(0, 0, 0, 0.02),
+            0px 4px 5.3px rgba(0, 0, 0, 0.028),
+            0px 7.5px 10px rgba(0, 0, 0, 0.035),
+            0px 13.4px 17.9px rgba(0, 0, 0, 0.042),
+            0px 25.1px 33.4px rgba(0, 0, 0, 0.15),
+            0px 60px 80px rgba(0, 0, 0, 0.3);
 }
 
 .numberBoard-container > input {
-    width: 97.5%;
-    height: 44px;
+    width: 92%;
+    height: 10%;
+    font-size: 20px;
     margin-bottom: 2px;
     border-radius: 10px;
-    background-color: darkgray;
-    border: 3px solid #8c8a8a;
+    background-color: white;
+    text-align: right;
 }
 
 .numberBoard {
@@ -62,11 +78,12 @@
 }
 
 .numberBoard > button {
-    width: 32.1%;
-    margin: 2px 2px 0 2px;
-    height: 50px;
+    width: 30%;
+    height: 7.73vh;
+    margin: 2px 4px 2px 4px;
+    /*height: 54px;*/
     border-radius: 10px;
-    background-color: black;
+    background-color: #3a4165;
     color: white;
     font-size: 20px;
 }

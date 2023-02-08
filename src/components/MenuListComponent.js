@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useRef} from "react";
-import axiosInstance from "../api/axiosClient";
+import {getMenuList} from "../api/axiosClient";
 import "../css/menuListComponent.css"
-import OrderListComponent from "./OrderListComponent";
 
 const MenuListComponent = (props) => {
 
@@ -11,9 +10,19 @@ const MenuListComponent = (props) => {
     const [clickCategory, setClickCategory] = useState(0);
     const categoryRef = useRef();
 
-    const getMenuList = async () => {
+    useEffect(() => {
+        getMenuListCall();
+    }, [])
+    const getMenuListCall = async () => {
         try{
-            const menuListRes = await axiosInstance.get("/menu/list");
+            const menuListRes = await getMenuList(
+                "/menu/list",
+                {
+                        headers: {
+                            jwt: `${localStorage.getItem("jwt")}`
+                        }
+                    }
+                );
             if (menuListRes.status === 200) {
                 if (menuListRes.data.res_code === "0000") {
                     setCategoryList(menuListRes.data.categorylist);
@@ -23,10 +32,10 @@ const MenuListComponent = (props) => {
                     alert(menuListRes.data.message)
                 }
             } else {
-                alert("api 통신 실패")
+                alert("오류")
             }
         } catch (e) {
-            alert("오류 : ", e.message)
+            alert("api 통신 실패")
         }
     }
 
@@ -39,14 +48,8 @@ const MenuListComponent = (props) => {
     }
 
     const menuOnClick = (menupkey, saleprice, menuname) => {
-        props.menuClick(menupkey, saleprice, menuname, 1);
+        props.menuOnClickHandler(menupkey, saleprice, menuname, 1);
     }
-
-    useEffect(() => {
-        return (() => {
-            getMenuList();
-        })
-    }, [])
 
     return (
         <div className={"menuList-container"}>

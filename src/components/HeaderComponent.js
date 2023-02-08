@@ -1,16 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {useNavigate} from "react-router-dom";
 import "../css/headerComponent.css";
 import {useLocation} from "react-router";
+// import {MyContext} from "../contexts/MyContext";
 
 const HeaderComponent = () => {
 
     const {state} = useLocation();  // 주문테이블 고유번호                 // 테이블 고유번호
-
     const navigate = useNavigate();
 
     const homeOnClick = () => {
-        navigate("/tables");
+        if (localStorage.getItem("openyn") === "true") {
+            //  정상 로그인 되면 openyn => true로 변경됨
+            //  로그인 전에는 해더 버튼 비활성
+            navigate("/tables");
+        }
     }
 
     const [date, setDate] = useState("");
@@ -37,11 +41,11 @@ const HeaderComponent = () => {
     return (
         <div className={"header-container"} onClick={homeOnClick}>
             <div className={"company"}>
-                JeonJu POS
+                전주 POS
             </div>
             <div className={"header-items"}>
                 <div className={"header-title-container"}>
-                    <p className={"header-title-item"}>매장명 :</p><p className={"store-name"}>전주손칼국수</p>
+                    <p className={"header-title-item"}>매장명 :</p><p className={"store-name"}>{localStorage.getItem("storename")}</p>
                     <p className={"header-title-item"}>영업일자 :</p><p className={"opening-date"}>{date}</p>
                     <p className={"header-title-item"}>테이블 :</p><p className={"table-num"}>{state}</p>
                 </div>
