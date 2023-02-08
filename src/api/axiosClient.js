@@ -18,22 +18,6 @@ export const order = async (data) => {
     );
 }
 
-export const reOrder = async (data) => {
-    return await axiosClient.post(
-        "/order/re",
-        {
-            orderinfopkey: data.orderinfopkey,
-            orderList: data.orderList,
-            newOrderList: data.newOrderList
-        },
-        {
-            headers: {
-                jwt: `${localStorage.getItem("jwt")}`
-            }
-        }
-    );
-}
-
 export const getOrderList = async (state) => {
     return await axiosClient.get(
         "/space/order/list?spacepkey=" + state,
@@ -87,4 +71,41 @@ export const pay = async (data) => {
     );
 }
 
-// module.exports = getAPI;
+export const getManageMenuList = async () => {
+    return await axiosClient.get(
+        "/manage/menu/list",
+        {headers: {jwt: `${localStorage.getItem("jwt")}`}}
+    );
+}
+
+export const menuUseYnModify = async (data) => {
+    return await axiosClient.post(
+        "/manage/menu/useyn/modify",
+        data,
+        {headers: {jwt: `${localStorage.getItem("jwt")}`}}
+    );
+}
+
+export const takeoutYnModify = async (data) => {
+    return await axiosClient.post(
+        "/manage/menu/takeoutyn/modify",
+        data,
+        {headers: {jwt: `${localStorage.getItem("jwt")}`}}
+    );
+}
+
+export const takeinYnModify = async (data) => {
+    return await axiosClient.post(
+        "/manage/menu/takeinyn/modify",
+        data,
+        {headers: {jwt: `${localStorage.getItem("jwt")}`}}
+    );
+}
+
+export const getSaleList = async (startDate, endDate) => {
+    return await axiosClient.get(
+        `/manage/sale/list?startDate=${startDate}&endDate=${endDate}`,
+        {headers: {jwt: `${localStorage.getItem("jwt")}`}}
+    );
+}
+

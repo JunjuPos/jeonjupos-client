@@ -25,21 +25,34 @@ const OrderBtnComponent = (props) => {
     }
 
     const payClick = async (type) => {
-        alert(type)
         const orderList = props.orderList;
         const space = props.space;
         const newSalePrice = props.newSalePrice;
         const reqPayPrice = sessionStorage.getItem("reqPayPrice");
 
+        console.log("newSalePrice : ", newSalePrice);
+
+        if (newSalePrice > 0) {
+            alert("주문후에 결제를 진행해주세요.");
+            return true;
+        }
+
+        if (reqPayPrice === "0" || reqPayPrice === "") {
+            alert("결제 금액을 입력해주세요");
+            return true;
+        }
+
         const data = {
             orderinfopkey: space.orderinfopkey,
             reqPayPrice: reqPayPrice,
-            type: "cash"
+            type: type,
+            spacepkey: space.spacepkey
         }
 
         try{
+            alert("api 요청");
             const result = await pay(data);
-            console.log("pay result : ", result);
+            navigate("/tables");
         } catch (err) {
             console.log(err);
             alert(err.response.data.message);

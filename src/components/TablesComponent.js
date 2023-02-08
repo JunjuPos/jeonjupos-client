@@ -43,7 +43,6 @@ const TablesComponent = () => {
         <div className={"space-container"}>
             {
                 spaceList.map((table) => {
-                    console.log("table : ", table);
                     return (
                         <div
                             className={"space-card spaceCard" + table.spacenum.toString()}
