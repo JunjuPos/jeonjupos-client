@@ -14,7 +14,7 @@ const OrderBtnComponent = (props) => {
 
     const navigate = useNavigate();
 
-    const {state} = useLocation();  // 주문테이블 고유번호
+    // const {state} = useLocation();  // 주문테이블 고유번호
 
     const orderClick = async () => {
         props.orderHandler();
@@ -25,12 +25,10 @@ const OrderBtnComponent = (props) => {
     }
 
     const payClick = async (type) => {
-        const orderList = props.orderList;
+        // const orderList = props.orderList;
         const space = props.space;
         const newSalePrice = props.newSalePrice;
         const reqPayPrice = sessionStorage.getItem("reqPayPrice");
-
-        console.log("newSalePrice : ", newSalePrice);
 
         if (newSalePrice > 0) {
             alert("주문후에 결제를 진행해주세요.");
@@ -50,18 +48,14 @@ const OrderBtnComponent = (props) => {
         }
 
         try{
-            alert("api 요청");
             const result = await pay(data);
             navigate("/tables");
         } catch (err) {
-            console.log(err);
             alert(err.response.data.message);
             if (err.response.status === 401) {
                 navigate("/");
             }
         }
-
-        console.log("data : ", data);
     }
 
     // const cardPayClick = async () => {

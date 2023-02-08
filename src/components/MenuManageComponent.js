@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import "../css/menuManageComponent.css"
 import {
     getManageMenuList,
@@ -6,14 +6,19 @@ import {
     takeoutYnModify,
     takeinYnModify
 } from "../api/axiosClient";
+import {MyContext} from "../contexts/MyContext";
+import {useNavigate} from "react-router-dom";
 
 const MenuManageComponent = (props) => {
+    const {manageMenuCategoryPkey, setManageMenuCategoryPkey} = useContext(MyContext);  // 현재 클릭한 카테고리 pkey 저장
+    const navigate = useNavigate();
 
     const [categoryList, setCategoryList] = useState([]);
     const [categoryMenuList, setCategoryMenuList] = useState([]);
-    const [menuList, setMenuList] = useState([]);
+    const [allMenuList, setAllMenuList] = useState([]);
 
     useEffect(() => {
+        setManageMenuCategoryPkey(0);
         getMenuList();
     }, []);
 
@@ -21,21 +26,34 @@ const MenuManageComponent = (props) => {
         try {
             const result = await getManageMenuList();
             setCategoryList(result.data.data.categorylist);
-            const menulist = result.data.data.menulist.map((item) => {
-                // console.log(item);
-                if (item.categorypkey === result.data.data.categorylist[0].categorypkey) {
-                    return item;
-                }
-            }).filter(element => element)
-            setCategoryMenuList([...menulist]);
-            setMenuList(result.data.data.menulist);
+            if (manageMenuCategoryPkey !== 0) {
+                const menulist = result.data.data.menulist.map((item) => {
+                    if (item.categorypkey === manageMenuCategoryPkey) {
+                        return item;
+                    }
+                }).filter(element => element)
+                setCategoryMenuList([...menulist]);
+                setAllMenuList(result.data.data.menulist);
+            } else {
+                const menulist = result.data.data.menulist.map((item) => {
+                    if (item.categorypkey === result.data.data.categorylist[0].categorypkey) {
+                        return item;
+                    }
+                }).filter(element => element)
+                setCategoryMenuList([...menulist]);
+                setAllMenuList(result.data.data.menulist);
+            }
         } catch (err) {
             alert(err.response.data.message);
+            if (err.response.status === 401) {
+                navigate("/");
+            }
         }
     }
 
     const categoryOnClickHandler = (e) => {
-        const menulist = menuList.map((item) => {
+        setManageMenuCategoryPkey(parseInt(e.currentTarget.id));
+        const menulist = allMenuList.map((item) => {
             if (parseInt(e.currentTarget.id) === item.categorypkey) {
                 return item;
             }
@@ -50,6 +68,9 @@ const MenuManageComponent = (props) => {
             await getMenuList();
         } catch (err) {
             alert(err.response.data.message);
+            if (err.response.status === 401) {
+                navigate("/");
+            }
         }
     }
 
@@ -79,15 +100,15 @@ const MenuManageComponent = (props) => {
                 {
                     categoryList.map((item) => {
                         return (
-                            <p id={item.categorypkey} onClick={(e) => {categoryOnClickHandler(e)}}>
+                            <button id={item.categorypkey} onClick={(e) => {categoryOnClickHandler(e)}}>
                                 {item.categoryname}
-                            </p>
+                            </button>
                         )
                     })
                 }
             </div>
             <table className={"menu-list-container"}>
-                <tr className={"menu-list-title"}>
+                <tr className={"menu-title"}>
                     <th className={"name"}>메뉴명</th>
                     <th className={"amount"}>정상가</th>
                     <th className={"amount"}>판매가</th>
@@ -100,7 +121,7 @@ const MenuManageComponent = (props) => {
                 {
                     categoryMenuList.map((item) => {
                         return (
-                            <tr>
+                            <tr className={"menu-card"}>
                                 <td>{item.menuname}</td>
                                 <td>{item.originprice.toLocaleString()}</td>
                                 <td>{item.saleprice.toLocaleString()}</td>
