@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-        // baseURL: 'http://52.78.45.79',
-        baseURL: 'http://127.0.0.1:8000',
+        baseURL: 'http://52.78.45.79',
+        // baseURL: 'http://127.0.0.1:8000',
         timeout: 10000
 })
 
@@ -102,9 +102,9 @@ export const takeinYnModify = async (data) => {
     );
 }
 
-export const getSaleList = async (startDate, endDate) => {
+export const getSaleList = async (startDate, endDate, searchPostPaidName, searchMenuName) => {
     return await axiosClient.get(
-        `/manage/sale/list?startDate=${startDate}&endDate=${endDate}`,
+        `/manage/sale/list?startDate=${startDate}&endDate=${endDate}&postPaidName=${searchPostPaidName}&menuName=${searchMenuName}`,
         {headers: {jwt: `${localStorage.getItem("jwt")}`}}
     );
 }

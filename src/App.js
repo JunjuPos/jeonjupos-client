@@ -12,9 +12,10 @@ import SaleManageComponent from "./components/SaleManageComponent";
 const App = () => {
 
     const [storename, setStorename] = useState("");
+    const [manageMenuCategoryPkey, setManageMenuCategoryPkey] = useState(0);
 
     return (
-        <MyContext.Provider value={{storename, setStorename}}>
+        <MyContext.Provider value={{storename, setStorename, manageMenuCategoryPkey, setManageMenuCategoryPkey}}>
             <div className={"AppArea"}>
                 <Router>
                     <HeaderComponent/>
