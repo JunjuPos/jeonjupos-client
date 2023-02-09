@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/openComponent.css";
-import {getOwner} from "../api/axiosClient";
+import {getOwner} from "../connection/index";
 // import {MyContext} from "../contexts/MyContext";
 
-const LoginComponent = () => {
+const Login = () => {
     const navigate = useNavigate();
 
     const [id, setId] = useState("");
@@ -69,4 +69,4 @@ const LoginComponent = () => {
     )
 }
 
-export default LoginComponent;
+export default Login;

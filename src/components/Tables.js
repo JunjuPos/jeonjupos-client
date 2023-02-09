@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {getTableList} from "../api/axiosClient";
+import {getTableList} from "../connection/index";
 import "../css/tablesComponent.css";
 
-const TablesComponent = () => {
+const Tables = () => {
     const navigate = useNavigate();
 
     localStorage.setItem("spacepkey", "0")
@@ -75,4 +75,4 @@ const TablesComponent = () => {
     )
 }
 
-export default TablesComponent;
+export default Tables;

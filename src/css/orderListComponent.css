@@ -131,18 +131,33 @@
     margin-right: 5px;
     height: 100%;
     border-radius: 10px;
-    font-size: 15px;
-    font-weight: 700;
 }
 
 .countController-container > button:last-child {
     margin-right: 0;
 }
 
-/*.countController-plus {*/
-/*    flex: 1;*/
-/*}*/
+.all-cancel-btn {
+    font-size: 100%;
+    font-weight: 700;
+}
 
-/*.countController-minus {*/
-/*    flex: 1;*/
-/*}*/
+.choice-cancel-btn {
+    font-size: 100%;
+    font-weight: 700;
+}
+
+.postpaidgroup-btn {
+    font-size: 100%;
+    font-weight: 700;
+}
+
+.countController-plus {
+    font-size: 200%;
+    font-weight: 500;
+}
+
+.countController-minus {
+    font-size: 200%;
+    font-weight: 500;
+}

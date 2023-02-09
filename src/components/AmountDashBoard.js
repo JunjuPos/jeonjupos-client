@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "../css/amountDashBoardComponent.css"
 
-const AmountDashBoardComponent = (props) => {
+const AmountDashBoard = (props) => {
 
     useEffect(() => {
         sessionStorage.setItem("reqPayPrice", 0);
@@ -32,8 +32,16 @@ const AmountDashBoardComponent = (props) => {
                 setNumber(0);
             }
         } else if (ctn === "전체") {
-            sessionStorage.setItem("reqPayPrice", props.space.totalSalePrice + props.newSalePrice);
-            setNumber(props.space.totalSalePrice + props.newSalePrice);
+            if (props.space.expectedRestPrice > 0) {
+                //  남은 금액은 0보다 크면 한번 결제한 경우
+                //  따라서 남은 금액만큼 세팅한다.
+                sessionStorage.setItem("reqPayPrice", props.space.expectedRestPrice);
+                setNumber(props.space.expectedRestPrice);
+            } else {
+                //  최초 결제 이기때문에 전체 금액으로 세팅함
+                sessionStorage.setItem("reqPayPrice", props.space.totalSalePrice + props.newSalePrice);
+                setNumber(props.space.totalSalePrice + props.newSalePrice);
+            }
         } else {
 
         }
@@ -90,4 +98,4 @@ const AmountDashBoardComponent = (props) => {
     )
 }
 
-export default AmountDashBoardComponent;
+export default AmountDashBoard;

@@ -5,11 +5,11 @@ import {
     menuUseYnModify,
     takeoutYnModify,
     takeinYnModify
-} from "../api/axiosClient";
+} from "../connection/index";
 import {MyContext} from "../contexts/MyContext";
 import {useNavigate} from "react-router-dom";
 
-const MenuManageComponent = (props) => {
+const MenuManage = (props) => {
     const {manageMenuCategoryPkey, setManageMenuCategoryPkey} = useContext(MyContext);  // 현재 클릭한 카테고리 pkey 저장
     const navigate = useNavigate();
 
@@ -139,4 +139,4 @@ const MenuManageComponent = (props) => {
     )
 }
 
-export default MenuManageComponent;
+export default MenuManage;

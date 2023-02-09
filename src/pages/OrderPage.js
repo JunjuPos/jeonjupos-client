@@ -1,15 +1,17 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect} from "react";
 import {useLocation} from "react-router";
-import OrderListComponent from "../components/OrderListComponent";
-import MenuListComponent from "../components/MenuListComponent";
-import AmountDashBoardComponent from "../components/AmountDashBoardComponent";
-import OrderBtnComponent from "../components/OrderBtnComponent";
+import OrderList from "../components/OrderList";
+import MenuList from "../components/MenuList";
+import AmountDashBoard from "../components/AmountDashBoard";
+import OrderBtn from "../components/OrderBtn";
 import {
-    getOrderList, order
-} from "../api/axiosClient";
+    getTableOrderList, order
+} from "../connection/index";
 import {useNavigate} from "react-router-dom";
+import PostPaidGroupList from "../components/PostPaidGroupList";
 
 const OrderPage = (props) => {
+
     const {state} = useLocation();  // 주문테이블 고유번호                 // 테이블 고유번호
     const navigate = useNavigate();
 
@@ -23,14 +25,15 @@ const OrderPage = (props) => {
     });
     const [orderList, setOrderList] = useState([]);
     const [newSalePrice, setNewSalePrice] = useState(0);
+    const [viewMenuList, setViewMenuList] = useState(true);
 
     useEffect( () => {
-        getOrderListCall();
+        getTableOrderListCall();
     }, []);
 
-    const getOrderListCall = async () => {
+    const getTableOrderListCall = async () => {
         try{
-            let result = await getOrderList(state);
+            let result = await getTableOrderList(state);
             if (result.status === 200) {
                 if (result.data.res_code === "0000") {
                     const getOrderList = result.data.orderlist;
@@ -146,25 +149,32 @@ const OrderPage = (props) => {
         }
     }
 
+    const viewMenuListHandler = () => {
+        setViewMenuList(viewMenuList !== true);
+    }
+
     return (
         <div style={{flex: "1 0 auto", display: "inline-flex", alignItems: "flex-start", width: "100%", height: "90%"}}>
             <div style={{flex: "1", marginLeft: "10px", width: "100%", height: "100%"}}>
-                <OrderListComponent
+                <OrderList
                     orderList={orderList}
                     countCntOnClickHandler={countCntOnClickHandler}
                     orderListInit={orderListInit}
                     orderListChoiceInit={orderListChoiceInit}
+                    viewMenuListHandler={viewMenuListHandler}
                 />
-                <AmountDashBoardComponent
+                <AmountDashBoard
                     space={space}
                     newSalePrice={newSalePrice}
                 />
             </div>
             <div style={{flex: "1", marginLeft: "10px", marginRight: "10px", width: "100%", height: "100%"}}>
-                <MenuListComponent
-                    menuOnClickHandler={menuOnClickHandler}
-                />
-                <OrderBtnComponent
+                {
+                    viewMenuList ?
+                        <MenuList menuOnClickHandler={menuOnClickHandler}/>: <PostPaidGroupList space={space} newSalePrice={newSalePrice} orderList={orderList}/>
+                }
+                {/*<MenuList menuOnClickHandler={menuOnClickHandler}/>*/}
+                <OrderBtn
                     orderHandler={orderHandler}
                     space={space}
                     newSalePrice={newSalePrice}
