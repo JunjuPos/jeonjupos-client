@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    // baseURL: 'http://52.78.45.79/api',
-    baseURL: 'http://app.jeonjupos.kr/api',
-    // baseURL: 'http://127.0.0.1:8000/api',
+    // baseURL: 'http://52.78.45.79',
+    baseURL: 'http://app.jeonjupos.kr',
+    // baseURL: 'http://127.0.0.1:8000',
     timeout: 10000
 })
 
