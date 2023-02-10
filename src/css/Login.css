@@ -1,14 +1,10 @@
-.AppArea{
-    background-color: white;
-}
-
 
 .login-container {
-    margin-top: 50px;
+    margin-top: 3%;
     text-align: center;
     margin-left: 25%;
     width: 50%;
-    height: 20%;
+    height: 80%;
     vertical-align: middle;
     border: 2px solid #a6a3a3;
     box-shadow:
@@ -21,18 +17,18 @@
 }
 
 .login-title {
-    margin-top: 50px;
+    margin-top: 20%;
     margin-right: auto;
     margin-left: auto;
     width: 70%;
     font-size: 200%;
-    height: 13%;
+    height: 50px;
     font-family: "Gill Sans", sans-serif;
     color: white;
     font-weight: 400;
     background-color: #404663;
     border-radius: 25px;
-    line-height: 120%;
+    line-height: 140%;
 }
 
 .id-input {
@@ -73,7 +69,7 @@
 #login-btn {
     margin-top: 30px;
     width: 30%;
-    height: 15%;
+    height: 50px;
     border: none;
 
     cursor: pointer;
