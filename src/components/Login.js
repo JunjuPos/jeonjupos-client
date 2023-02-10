@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import "../css/openComponent.css";
-import {getOwner} from "../api/axiosClient";
+import "../css/Login.css";
+import {
+    login, jwtLogin
+} from "../connection/index";
 // import {MyContext} from "../contexts/MyContext";
 
-const LoginComponent = () => {
+const Login = () => {
     const navigate = useNavigate();
 
     const [id, setId] = useState("");
@@ -12,12 +14,28 @@ const LoginComponent = () => {
     localStorage.setItem("storename", "");
     localStorage.setItem("openyn", "false")
     localStorage.setItem("storeid", "");
-    localStorage.setItem("jwt", "");
-
-    // const {setStorename} = useContext(MyContext);
 
     const tableNavigate = () => {
         navigate("/tables");
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem("jwt") !== null) {
+            jwtLoginHandler();
+        }
+    }, [])
+
+    const jwtLoginHandler = async () => {
+        try{
+            const result = await jwtLogin();
+            if (result.data.res_code === "0000") {
+                tableNavigate();
+            } else {
+                alert(result.data.message);
+            }
+        } catch (err) {
+            alert("api 통신오류")
+        }
     }
 
     const loginBtnHandler = async () => {
@@ -25,7 +43,7 @@ const LoginComponent = () => {
             id: id,
             password: password
         }
-        const result = await getOwner(data);
+        const result = await login(data);
         if (result.status === 200) {
             if (result.data.result === true) {
                 // 로그인 성공 시 localStorage setting
@@ -56,17 +74,16 @@ const LoginComponent = () => {
 
     return (
         <div className={"login-container"}>
+            <div className={"login-title"}>JeonJu POS</div>
             <div>
-                <span>ID : </span>
-                <input type={"text"} className={"id-input"} onChange={(e) => {idHandler(e)}}></input>
+                <input type={"text"} className={"id-input"} placeholder={"USER ID"} onChange={(e) => {idHandler(e)}}></input>
             </div>
             <div>
-                <span>PS : </span>
-                <input type={"password"} className={"password-input"} onChange={(e) => {passwordHandler(e)}}></input>
+                <input type={"password"} className={"password-input"} placeholder={"PASSWORD"} onChange={(e) => {passwordHandler(e)}}></input>
             </div>
-            <button id={"login-btn"} onClick={loginBtnHandler}>로그인</button>
+            <button id={"login-btn"} onClick={loginBtnHandler}>LOGIN</button>
         </div>
     )
 }
 
-export default LoginComponent;
+export default Login;

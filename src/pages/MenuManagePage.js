@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
-import MenuManageComponent from "../components/MenuManageComponent";
+import React from "react";
+import MenuManage from "../components/MenuManage";
 
 
 const MenuManagePage = (props) => {
 
     return (
-        <MenuManageComponent/>
+        <MenuManage/>
     )
 }
 

@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {
     pay
-} from "../api/axiosClient";
-import {useLocation} from "react-router";
+} from "../connection/index";
 import {useNavigate} from "react-router-dom";
 import "../css/orderBtnComponent.css"
+import PostPaidGroupList from "./PostPaidGroupList";
 
-const OrderBtnComponent = (props) => {
+const OrderBtn = (props) => {
     /**
      *  props: space(테이블 정보), orderList(기존 주문내역), newOrderList(신규 주문내역), firstOrderYn(첫주문 여부)
      * @type {NavigateFunction}
@@ -47,6 +47,11 @@ const OrderBtnComponent = (props) => {
             spacepkey: space.spacepkey
         }
 
+        if (type === "deferred") {
+            // navigate("/postpaid-group/list", {state: data});
+            return;
+        }
+
         try{
             const result = await pay(data);
             navigate("/tables");
@@ -57,10 +62,6 @@ const OrderBtnComponent = (props) => {
             }
         }
     }
-
-    // const cardPayClick = async () => {
-    //
-    // }
 
     return (
         <div className={"submitBtn-container"}>
@@ -83,4 +84,4 @@ const OrderBtnComponent = (props) => {
     )
 }
 
-export default OrderBtnComponent;
+export default OrderBtn;
