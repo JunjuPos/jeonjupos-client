@@ -1,12 +1,14 @@
 let ADDRESS = "http://api.jeonjupos.kr";
 
-export const __DEV__ = false;
+export const __DEV__ = true;
 
 if (__DEV__) {
     ADDRESS = "http://127.0.0.1:8000";
 }
 
 export const URL_POST_LOGIN = `${ADDRESS}/user/login`;   // 로그인
+
+export const URL_POST_JWT_LOGIN = `${ADDRESS}/user/jwt/login`;  // jwt 로그인
 
 export const URL_GET_TABLE_LIST = `${ADDRESS}/table/list`;   // 테이블 리스트 조회
 

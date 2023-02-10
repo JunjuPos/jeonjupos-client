@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/Login.css";
-import {getOwner} from "../connection/index";
+import {
+    login, jwtLogin
+} from "../connection/index";
 // import {MyContext} from "../contexts/MyContext";
 
 const Login = () => {
@@ -12,10 +14,28 @@ const Login = () => {
     localStorage.setItem("storename", "");
     localStorage.setItem("openyn", "false")
     localStorage.setItem("storeid", "");
-    localStorage.setItem("jwt", "");
 
     const tableNavigate = () => {
         navigate("/tables");
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem("jwt") !== null) {
+            jwtLoginHandler();
+        }
+    }, [])
+
+    const jwtLoginHandler = async () => {
+        try{
+            const result = await jwtLogin();
+            if (result.data.res_code === "0000") {
+                tableNavigate();
+            } else {
+                alert(result.data.message);
+            }
+        } catch (err) {
+            alert("api 통신오류")
+        }
     }
 
     const loginBtnHandler = async () => {
@@ -23,7 +43,7 @@ const Login = () => {
             id: id,
             password: password
         }
-        const result = await getOwner(data);
+        const result = await login(data);
         if (result.status === 200) {
             if (result.data.result === true) {
                 // 로그인 성공 시 localStorage setting

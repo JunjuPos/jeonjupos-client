@@ -11,10 +11,11 @@ import {
     URL_POST_PAY,
     URL_POST_TAKEIN_YN_MODIFY,
     URL_POST_TAKEOUT_YN_MODIFY,
-    URL_GET_POSTPAID_GROUP_LIST
+    URL_GET_POSTPAID_GROUP_LIST,
+    URL_POST_JWT_LOGIN
 } from "./urls";
 
-export const getOwner = async (data) => {
+export const login = async (data) => {
     const url = `${URL_POST_LOGIN}`;
     return await axios({
         url,
@@ -22,6 +23,15 @@ export const getOwner = async (data) => {
         headers: {
             "Content-Type": "application/json"
         },
+        method: "POST"
+    });
+}
+
+export const jwtLogin = async () => {
+    const url = `${URL_POST_JWT_LOGIN}`;
+    return await axios({
+        url,
+        headers: {jwt: `${localStorage.getItem("jwt")}`},
         method: "POST"
     });
 }
