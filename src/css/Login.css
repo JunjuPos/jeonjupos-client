@@ -8,7 +8,7 @@
     text-align: center;
     margin-left: 25%;
     width: 50%;
-    height: 60%;
+    height: 20%;
     vertical-align: middle;
     border: 2px solid #a6a3a3;
     box-shadow:
@@ -21,12 +21,12 @@
 }
 
 .login-title {
-    margin-top: 70px;
+    margin-top: 50px;
     margin-right: auto;
     margin-left: auto;
     width: 70%;
-    font-size: 5vh;
-    height: 7vh;
+    font-size: 200%;
+    height: 13%;
     font-family: "Gill Sans", sans-serif;
     color: white;
     font-weight: 400;
@@ -36,7 +36,7 @@
 }
 
 .id-input {
-    margin-top: 50px;
+    margin-top: 40px;
     width: 40%;
     height: 30px;
     background-color: white;
@@ -71,9 +71,9 @@
 }
 
 #login-btn {
-    margin-top: 50px;
-    width: 30vh;
-    height: 4vh;
+    margin-top: 30px;
+    width: 30%;
+    height: 15%;
     border: none;
 
     cursor: pointer;
