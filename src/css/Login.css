@@ -1,0 +1,106 @@
+.AppArea{
+    background-color: white;
+}
+
+
+.login-container {
+    margin-top: 50px;
+    text-align: center;
+    margin-left: 25%;
+    width: 50%;
+    height: 60%;
+    vertical-align: middle;
+    border: 2px solid #a6a3a3;
+    box-shadow:
+            0px 1.7px 2.2px rgba(0, 0, 0, 0.82),
+            0px 4px 5.3px rgba(0, 0, 0, 0.128),
+            0px 7.5px 10px rgba(0, 0, 0, 0.15),
+            0px 13.4px 17.9px rgba(0, 0, 0, 0.142),
+            0px 25.1px 33.4px rgba(0, 0, 0, 0.3),
+            0px 60px 80px rgba(0, 0, 0, 0.2);
+}
+
+.login-title {
+    margin-top: 70px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 70%;
+    font-size: 5vh;
+    height: 7vh;
+    font-family: "Gill Sans", sans-serif;
+    color: white;
+    font-weight: 400;
+    background-color: #404663;
+    border-radius: 25px;
+    line-height: 120%;
+}
+
+.id-input {
+    margin-top: 50px;
+    width: 40%;
+    height: 30px;
+    background-color: white;
+    color: #404663;
+    border: none;
+    border-radius: 7px;
+    border-bottom: 3px solid #404663;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.id-input::placeholder {
+    color: gray;
+}
+
+.password-input {
+    margin-top: 20px;
+    width: 40%;
+    height: 30px;
+    background-color: white;
+    color: #404663;
+    border: none;
+    border-radius: 7px;
+    border-bottom: 3px solid #404663;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.password-input::placeholder {
+    color: #404663;
+    color: gray;
+}
+
+#login-btn {
+    margin-top: 50px;
+    width: 30vh;
+    height: 4vh;
+    border: none;
+
+    cursor: pointer;
+    font: inherit;
+    background-color: #404663;
+    color: #fff;
+    border: 0;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 140%;
+    border-radius: 0.5em;
+    z-index: 999;
+    position: relative;
+    /*display: flex;*/
+    gap: 0.5em;
+    box-shadow:
+            0px 1.7px 2.2px rgba(0, 0, 0, 0.82),
+            0px 4px 5.3px rgba(0, 0, 0, 0.128),
+            0px 7.5px 10px rgba(0, 0, 0, 0.15),
+            0px 13.4px 17.9px rgba(0, 0, 0, 0.142),
+            0px 25.1px 33.4px rgba(0, 0, 0, 0.3),
+            0px 60px 80px rgba(0, 0, 0, 0.2);
+
+}
+
+#login-btn:hover {
+    background-color: #465085;
+    color: #fff;
+}
+

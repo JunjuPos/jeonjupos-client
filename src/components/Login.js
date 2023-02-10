@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import "../css/openComponent.css";
+import "../css/Login.css";
 import {getOwner} from "../connection/index";
 // import {MyContext} from "../contexts/MyContext";
 
@@ -13,8 +13,6 @@ const Login = () => {
     localStorage.setItem("openyn", "false")
     localStorage.setItem("storeid", "");
     localStorage.setItem("jwt", "");
-
-    // const {setStorename} = useContext(MyContext);
 
     const tableNavigate = () => {
         navigate("/tables");
@@ -56,15 +54,14 @@ const Login = () => {
 
     return (
         <div className={"login-container"}>
+            <div className={"login-title"}>JeonJu POS</div>
             <div>
-                <span>ID : </span>
-                <input type={"text"} className={"id-input"} onChange={(e) => {idHandler(e)}}></input>
+                <input type={"text"} className={"id-input"} placeholder={"USER ID"} onChange={(e) => {idHandler(e)}}></input>
             </div>
             <div>
-                <span>PS : </span>
-                <input type={"password"} className={"password-input"} onChange={(e) => {passwordHandler(e)}}></input>
+                <input type={"password"} className={"password-input"} placeholder={"PASSWORD"} onChange={(e) => {passwordHandler(e)}}></input>
             </div>
-            <button id={"login-btn"} onClick={loginBtnHandler}>로그인</button>
+            <button id={"login-btn"} onClick={loginBtnHandler}>LOGIN</button>
         </div>
     )
 }
