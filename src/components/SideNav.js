@@ -2,7 +2,7 @@ import React from "react";
 import "../css/sideNavComponent.css"
 import {useNavigate} from "react-router-dom";
 
-const SideNavComponent = () => {
+const SideNav = () => {
 
     const navigate = useNavigate();
 
@@ -40,4 +40,4 @@ const SideNavComponent = () => {
     )
 }
 
-export default SideNavComponent;
+export default SideNav;

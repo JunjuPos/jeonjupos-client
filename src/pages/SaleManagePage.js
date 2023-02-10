@@ -1,9 +1,9 @@
 import React from "react";
-import SaleManageComponent from "../components/SaleManageComponent";
+import SaleManage from "../components/SaleManage";
 
 const SaleManagePage = () => {
     return (
-        <SaleManageComponent/>
+        <SaleManage/>
     )
 }
 

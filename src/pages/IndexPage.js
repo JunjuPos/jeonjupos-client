@@ -1,11 +1,10 @@
 import React from "react";
-import LoginComponent from "../components/LoginComponent";
+import Login from "../components/Login";
 
 const IndexPage = () => {
 
     return (
-        <LoginComponent/>
+        <Login/>
     )
 }
-
 export default IndexPage;

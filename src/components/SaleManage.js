@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from "react";
-import CalendarComponent from "./CalendarComponent"
 import "../css/saleManageComponent.css"
 import '../css/calendarComponent.css'
 import Calendar from "react-calendar";
 import {
     getSaleList
-} from "../api/axiosClient";
+} from "../connection/index";
 import {useNavigate} from "react-router-dom";
 
 
-const SaleManageComponent = () => {
+const SaleManage = () => {
 
     const navigate = useNavigate();
 
@@ -54,13 +53,6 @@ const SaleManageComponent = () => {
     }
 
     const [value, onChange] = useState([new Date(), new Date()]);
-
-    const initSaleList = async () => {
-        // setCalendarViewYn(false);
-        // console.log(new Date(new Date().setDate(new Date().getFullYear() - 2)).toISOString());
-        // const result = await getSaleList(new Date((new Date()).setDate(new Date().getFullYear() - 10)).toISOString(), endDate);
-        // setSaleList(result.data.data.saleList);
-    }
 
     useEffect(() => {
         getSaleHandler();
@@ -200,4 +192,4 @@ const SaleManageComponent = () => {
     )
 }
 
-export default SaleManageComponent;
+export default SaleManage;

@@ -1,12 +1,12 @@
 import React from "react";
-import TablesComponent from "../components/TablesComponent";
-import SideNavComponent from "../components/SideNavComponent";
+import Tables from "../components/Tables";
+import SideNav from "../components/SideNav";
 
 const TablePage = () => {
     return (
         <div style={{display: "flex"}}>
-            <TablesComponent/>
-            <SideNavComponent/>
+            <Tables/>
+            <SideNav/>
         </div>
     )
 }

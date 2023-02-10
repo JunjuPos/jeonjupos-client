@@ -1,10 +1,10 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import "../css/headerComponent.css";
 import {useLocation} from "react-router";
 // import {MyContext} from "../contexts/MyContext";
 
-const HeaderComponent = () => {
+const Header = () => {
 
     const {state} = useLocation();  // 주문테이블 고유번호                 // 테이블 고유번호
     const navigate = useNavigate();
@@ -58,4 +58,4 @@ const HeaderComponent = () => {
     )
 }
 
-export default HeaderComponent
+export default Header

@@ -1,9 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {
-    orderModify
-} from "../api/axiosClient";
 import "../css/orderListComponent.css";
-import {useNavigate} from "react-router-dom";
 
 /**
  *
@@ -11,11 +7,7 @@ import {useNavigate} from "react-router-dom";
  * @returns {JSX.Element}
  * @constructor
  */
-const OrderListComponent = (props) => {
-    const navigate = useNavigate();
-    const tablePageMove = () => {
-        navigate("/tables");
-    }
+const OrderList = (props) => {
 
     const [totalCount, setTotalCount] = useState(0);
     const [totalSalePrice, setTotalSalePrice] = useState(0);
@@ -91,8 +83,9 @@ const OrderListComponent = (props) => {
                 <p className={"total-price"}>{totalSalePrice.toLocaleString()}</p>
             </div>
             <div className={"countController-container"}>
-                <button className={""} onClick={(e) => props.orderListInit()}>전체취소</button>
-                <button className={""} onClick={(e) => props.orderListChoiceInit(menupkey)}>선택취소</button>
+                <button className={"all-cancel-btn"} onClick={(e) => props.orderListInit()}>전체취소</button>
+                <button className={"choice-cancel-btn"} onClick={(e) => props.orderListChoiceInit(menupkey)}>선택취소</button>
+                <button className={"postpaidgroup-btn"} onClick={(e) => {props.viewMenuListHandler()}}>명부/메뉴 조회</button>
                 <button className={"countController-plus"} onClick={(e) => countOnClick("plus")}>+</button>
                 <button className={"countController-minus"} onClick={(e) => countOnClick("minus")}>-</button>
             </div>
@@ -100,4 +93,4 @@ const OrderListComponent = (props) => {
     )
 }
 
-export default OrderListComponent;
+export default OrderList;

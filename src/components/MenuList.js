@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useRef} from "react";
-import {getMenuList} from "../api/axiosClient";
+import {getMenuList} from "../connection/index";
 import "../css/menuListComponent.css"
 
-const MenuListComponent = (props) => {
+const MenuList = (props) => {
 
     const [menulist, setMenuList] = useState([]);
     const [categoryList, setCategoryList] = useState([]);
@@ -73,4 +73,4 @@ const MenuListComponent = (props) => {
     )
 }
 
-export default MenuListComponent;
+export default MenuList;
