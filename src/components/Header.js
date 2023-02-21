@@ -10,11 +10,12 @@ const Header = () => {
     const navigate = useNavigate();
 
     const homeOnClick = () => {
-        if (localStorage.getItem("openyn") === "true") {
-            //  정상 로그인 되면 openyn => true로 변경됨
-            //  로그인 전에는 해더 버튼 비활성
-            navigate("/tables");
-        }
+        navigate("/tables");
+        // if (localStorage.getItem("openyn") === "true") {
+        //     //  정상 로그인 되면 openyn => true로 변경됨
+        //     //  로그인 전에는 해더 버튼 비활성
+        //     navigate("/tables");
+        // }
     }
 
     const [date, setDate] = useState("");

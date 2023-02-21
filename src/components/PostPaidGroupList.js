@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {
     getPostPaidGroupList
 } from "../connection/index";
 import "../css/postPaidGroup.css"
 import {useNavigate} from "react-router-dom";
+import {MyContext} from "../contexts/MyContext";
 
 const PostPaidGroupList = (props) => {
+    const {setPostPaidGroupPkey} = useContext(MyContext);  // 현재 클릭한 후불명부 pkey 저장
     const navigate = useNavigate();
     const [postPaidList, setPostPaidList] = useState([]);
     const [search, setSearch] = useState("");
@@ -20,6 +22,11 @@ const PostPaidGroupList = (props) => {
                 navigate("/");
             }
         }
+    }
+
+    const postPaidGroupOnClickHandler = async (e) => {
+        const postPaidGroupPkey = e.currentTarget.id;
+        setPostPaidGroupPkey(postPaidGroupPkey);
     }
 
     useEffect(() => {
@@ -40,9 +47,9 @@ const PostPaidGroupList = (props) => {
                     <th>전화번호</th>
                 </tr>
                 {
-                    postPaidList.map((item) => {
+                    postPaidList.map((item, index) => {
                         return (
-                            <tr className={"postpaidgroup-table-row"}>
+                            <tr id={item.postpaidgrouppkey} className={"postpaidgroup-table-row"} onClick={(e) => {postPaidGroupOnClickHandler(e)}}>
                                 <td className={"companyname"}>{item.companyname}</td>
                                 <td className={"departmentname"}>{item.departmentname}</td>
                                 <td className={"delegatename"}>{item.delegatename}</td>

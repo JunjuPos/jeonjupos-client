@@ -12,7 +12,7 @@ const Login = () => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     localStorage.setItem("storename", "");
-    localStorage.setItem("openyn", "false")
+    localStorage.setItem("openyn", "false");
     localStorage.setItem("storeid", "");
 
     const tableNavigate = () => {
@@ -29,6 +29,13 @@ const Login = () => {
         try{
             const result = await jwtLogin();
             if (result.data.res_code === "0000") {
+                localStorage.setItem("storename", result.data.data.storename);
+                // storeid
+                localStorage.setItem("storeid", result.data.data.storepkey);
+                // jwt
+                localStorage.setItem("jwt", result.data.data.jwt);
+
+                localStorage.setItem("openyn", "true"); // 로그인 성공 시 openyn = true 로 변경
                 tableNavigate();
             } else {
                 alert(result.data.message);

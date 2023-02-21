@@ -1,10 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     pay
 } from "../connection/index";
 import {useNavigate} from "react-router-dom";
 import "../css/orderBtnComponent.css"
-import PostPaidGroupList from "./PostPaidGroupList";
+import {MyContext} from "../contexts/MyContext";
+import {render} from "react-thermal-printer";
+import OrderPrint from "./OrderPrint";
+// const {connect} =  require('node:net');
+// import {connect} from 'node:net';
+// import {connect} from "node:net";
+// const net = require('node:net');
+import { Br, Cut, Line, Printer, Text, Row } from "react-thermal-printer";
 
 const OrderBtn = (props) => {
     /**
@@ -12,11 +19,45 @@ const OrderBtn = (props) => {
      * @type {NavigateFunction}
      */
 
+    const {postPaidGroupPkey} = useContext(MyContext);  // 현재 클릭한 카테고리 pkey 저장
     const navigate = useNavigate();
 
     // const {state} = useLocation();  // 주문테이블 고유번호
 
     const orderClick = async () => {
+        // const data = await render(OrderPrint());
+
+        const data = await render(
+            <Printer type="epson">
+                <Text>Hello World</Text>
+            </Printer>
+        );
+
+        if ("serial" in await window.navigator) {
+            console.log("지원");
+        }
+        const ports = await navigator.serial.getPorts();
+        console.log("ports : ", ports);
+        const port = await window.navigator.serial.requestPort();
+        console.log("port : ", port);
+        try{
+            await port.open({baudRate: 9600});
+            const writer = port.writable.getWriter();
+            console.log("writer : ", writer)
+            if (writer != null) {
+                await writer.writer(data);
+                writer.releaseLock();
+            }
+            //
+            // 작업을 마쳤다면 다시 포트를 닫습니다. 이 한줄로 충돌을 방지
+            console.log("작업을 마쳤다면 다시 포트를 닫습니다. 이 한줄로 충돌을 방지");
+            await port.close({ baudRate: 9600 });
+
+        } catch (err) {
+            console.log("err : ", err);
+            await port.close({ baudRate: 9600 });
+        }
+
         props.orderHandler();
     }
 
@@ -48,8 +89,7 @@ const OrderBtn = (props) => {
         }
 
         if (type === "deferred") {
-            // navigate("/postpaid-group/list", {state: data});
-            return;
+            data.postpaidgrouppkey = postPaidGroupPkey;
         }
 
         try{
