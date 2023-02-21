@@ -18,7 +18,13 @@ const App = () => {
     const [postPaidGroupPkey, setPostPaidGroupPkey] = useState(null);
 
     return (
-        <MyContext.Provider value={{storename, setStorename, manageMenuCategoryPkey, setManageMenuCategoryPkey, postPaidGroupPkey, setPostPaidGroupPkey}}>
+        <MyContext.Provider value={
+            {
+                storename, setStorename,
+                manageMenuCategoryPkey, setManageMenuCategoryPkey,
+                postPaidGroupPkey, setPostPaidGroupPkey
+            }
+        }>
             <div className={"AppArea"}>
                 <Router>
                     <Header/>

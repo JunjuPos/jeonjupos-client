@@ -12,7 +12,8 @@ import {
     URL_POST_TAKEIN_YN_MODIFY,
     URL_POST_TAKEOUT_YN_MODIFY,
     URL_GET_POSTPAID_GROUP_LIST,
-    URL_POST_JWT_LOGIN
+    URL_POST_JWT_LOGIN,
+    URL_GET_MENU, URL_POST_MENU_MODIFY
 } from "./urls";
 
 export const login = async (data) => {
@@ -140,6 +141,27 @@ export const getPostPaidGroupList = async (search) => {
             jwt: `${localStorage.getItem("jwt")}`
         },
         method: "GET"
+    })
+}
+
+export const getMenu = async (storepkey, menupkey) => {
+    return await axios({
+        url: `${URL_GET_MENU}?storepkey=${storepkey}&menupkey=${menupkey}`,
+        headers: {
+            jwt: `${localStorage.getItem("jwt")}`
+        },
+        method: "GET"
+    })
+}
+
+export const menuModify = async (menu) => {
+    return await axios({
+        url: `${URL_POST_MENU_MODIFY}`,
+        data: menu,
+        headers: {
+            jwt: `${localStorage.getItem("jwt")}`
+        },
+        method: "POST"
     })
 }
 

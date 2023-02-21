@@ -11,16 +11,18 @@ const Login = () => {
 
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-    localStorage.setItem("storename", "");
-    localStorage.setItem("openyn", "false");
-    localStorage.setItem("storeid", "");
 
     const tableNavigate = () => {
         navigate("/tables");
     }
 
     useEffect(() => {
-        if (localStorage.getItem("jwt") !== null) {
+        if (localStorage.getItem('openyn') === "false") {
+            if (localStorage.getItem("jwt") !== null) {
+                jwtLoginHandler();
+            } else {
+            }
+        } else {
             jwtLoginHandler();
         }
     }, [])
@@ -28,10 +30,11 @@ const Login = () => {
     const jwtLoginHandler = async () => {
         try{
             const result = await jwtLogin();
+            console.log("result : ", result);
             if (result.data.res_code === "0000") {
                 localStorage.setItem("storename", result.data.data.storename);
                 // storeid
-                localStorage.setItem("storeid", result.data.data.storepkey);
+                localStorage.setItem("storeid", result.data.data.storeid);
                 // jwt
                 localStorage.setItem("jwt", result.data.data.jwt);
 
@@ -41,7 +44,7 @@ const Login = () => {
                 alert(result.data.message);
             }
         } catch (err) {
-            alert("api 통신오류")
+            alert("다시 로그인해주세요.")
         }
     }
 

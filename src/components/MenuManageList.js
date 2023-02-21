@@ -96,12 +96,7 @@ const MenuManageList = (props) => {
 
     const menuDetailOnClickHandler = (e) => {
         const menupkey = e.currentTarget.id;
-        // console.log("menupkey : ", menupkey)
-        navigate("/manage/menu", {
-            state: {
-                menupkey: menupkey
-            }
-        });
+        navigate("/manage/menu", {state: menupkey});
     }
 
     return (
