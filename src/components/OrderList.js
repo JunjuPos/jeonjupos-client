@@ -15,7 +15,7 @@ const OrderList = (props) => {
     const [orderCardActive, setOrderCardActive] = useState("");
 
     useEffect(() => {
-        //  props.orderList, props.newOrderList 변경 시 실행
+        //  props.orderList 변경 시 실행
 
         const totalSalePriceArr = props.orderList.map((item) => {
             if (item.cancelyn === false) {
@@ -58,6 +58,7 @@ const OrderList = (props) => {
             <div className={"orderList"}>
                 {
                     props.orderList.map((order, index) => {
+                        console.log("order : ", order);
                         if (order.cancelyn === false) {
                             return (
                                 <div

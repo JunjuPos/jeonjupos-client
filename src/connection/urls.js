@@ -1,6 +1,6 @@
 let ADDRESS = "http://api.jeonjupos.kr";
 
-export const __DEV__ = true;
+export const __DEV__ = false;
 
 if (__DEV__) {
     ADDRESS = "http://api.jeonjupos.kr/test";

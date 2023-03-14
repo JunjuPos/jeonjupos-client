@@ -59,7 +59,7 @@ const MenuDetail = (props) => {
 
     if (menu === null) {
         return (
-            <div>잠시만 기달려주세요.</div>
+            <div>잠시만 기다려주세요.</div>
         )
     } else {
         return (
