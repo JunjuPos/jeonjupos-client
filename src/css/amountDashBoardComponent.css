@@ -32,7 +32,7 @@
 
 .orderTotalPrice-title {
     text-align: left;
-    flex: 1;
+    flex: 1.2;
     font-size: 15px;
     margin: 5px 0 0 30px;
     line-height: 400%;
@@ -40,7 +40,7 @@
 
 .orderTotalPrice-item {
     text-align: right;
-    flex: 1;
+    flex: 0.8;
     font-size: 20px;
     margin: 5px 30px 0 0;
     line-height: 280%;
@@ -62,7 +62,7 @@
 }
 
 .numberBoard-container > input {
-    width: 92%;
+    width: 96.5%;
     height: 10%;
     font-size: 20px;
     margin-bottom: 2px;

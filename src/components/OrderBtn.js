@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useContext, useRef} from "react";
 import {
     pay
 } from "../connection/index";
 import {useNavigate} from "react-router-dom";
 import "../css/orderBtnComponent.css"
-import PostPaidGroupList from "./PostPaidGroupList";
+import {MyContext} from "../contexts/MyContext";
+let ReactDOM = require("react-dom");
+// import {render} from "react-thermal-printer";
+// import OrderPrint from "./OrderPrint";
+// const {connect} =  require('node:net');
+// import {connect} from 'node:net';
+// import {connect} from "node:net";
+// const net = require('node:net');
+// import { Br, Cut, Line, Printer, Text, Row } from "react-thermal-printer";
 
 const OrderBtn = (props) => {
     /**
@@ -12,11 +20,29 @@ const OrderBtn = (props) => {
      * @type {NavigateFunction}
      */
 
+    const printRef = useRef();
+
+    const {postPaidGroupPkey} = useContext(MyContext);  // 현재 클릭한 카테고리 pkey 저장
     const navigate = useNavigate();
 
     // const {state} = useLocation();  // 주문테이블 고유번호
 
     const orderClick = async () => {
+
+        // console.log("orderlist : ", props.orderList);
+        //
+        // let printContent = printRef.current;
+        // let windowObj = window.open(
+        //     '',
+        //     'Print',
+        //     'width=1350, height=800, toolbars=no, scrollbars=no, status=no, resizable=no'
+        // );
+        //
+        // windowObj.document.writeln(printContent.innerHTML);
+        // windowObj.document.close();
+        // windowObj.focus();
+        // windowObj.print();
+
         props.orderHandler();
     }
 
@@ -48,12 +74,12 @@ const OrderBtn = (props) => {
         }
 
         if (type === "deferred") {
-            // navigate("/postpaid-group/list", {state: data});
-            return;
+            data.postpaidgrouppkey = postPaidGroupPkey;
         }
 
         try{
             const result = await pay(data);
+            console.log("result : ", result);
             navigate("/tables");
         } catch (err) {
             alert(err.response.data.message);
@@ -80,6 +106,23 @@ const OrderBtn = (props) => {
             <button onClick={(e) => payClick('deferred')}>
                 후불결제
             </button>
+            <div hidden={true} ref={printRef}>
+                <span>메뉴명</span><span>수량</span><span>가격</span>
+                {
+                    props.newOrderList.map((item) => {
+                        return (
+                            // menupkey: menupkey,
+                            // saleprice: saleprice,
+                            // menuname: menuname,
+                            // count: count,
+                            // totalsaleprice: saleprice * count,
+                            <div>
+                                <span>{item.menuname}</span><span>{item.count}</span><span>{item.saleprice}</span>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

@@ -24,6 +24,7 @@ const OrderPage = (props) => {
         totalSalePrice: 0
     });
     const [orderList, setOrderList] = useState([]);
+    const [newOrderList, setNewOrderList] = useState([]);
     const [newSalePrice, setNewSalePrice] = useState(0);
     const [viewMenuList, setViewMenuList] = useState(true);
 
@@ -91,8 +92,10 @@ const OrderPage = (props) => {
         // 선택취소
         const idx = orderList.findIndex((item) => item.menupkey === menupkey);
         orderList[idx].cancelyn = true;
-        setNewSalePrice(newSalePrice - orderList[idx].saleprice);
+        orderList[idx].count = 0;
+        setNewSalePrice(newSalePrice - orderList[idx].totalsaleprice);
         setOrderList([...orderList]);
+        console.log("orderlist : ", orderList);
     }
 
     const menuOnClickHandler = (menupkey, saleprice, menuname, count) => {
@@ -100,6 +103,7 @@ const OrderPage = (props) => {
         const idx = orderList.findIndex((item) => item.menupkey === menupkey);
         setNewSalePrice(newSalePrice + saleprice * count);
         if (idx > -1) {
+            orderList[idx].cancelyn = false;
             orderList[idx].count += count;
             orderList[idx].totalsaleprice = orderList[idx].saleprice * orderList[idx].count;
             setOrderList([...orderList]);
@@ -115,6 +119,25 @@ const OrderPage = (props) => {
                         totalsaleprice: saleprice * count,
                         ordermenupkey: 0,
                         cancelyn: false
+                    }
+                ]
+            )
+        }
+
+        const newIdx = newOrderList.findIndex((item) => item.menupkey === menupkey);
+        if (newIdx > -1) {
+            newOrderList[idx].count += count;
+            setNewOrderList([...newOrderList]);
+        } else {
+            setNewOrderList(
+                [
+                    ...newOrderList,
+                    {
+                        menupkey: menupkey,
+                        saleprice: saleprice,
+                        menuname: menuname,
+                        count: count,
+                        totalsaleprice: saleprice * count,
                     }
                 ]
             )
@@ -179,6 +202,7 @@ const OrderPage = (props) => {
                     space={space}
                     newSalePrice={newSalePrice}
                     orderList={orderList}
+                    newOrderList={newOrderList}
                 />
             </div>
         </div>
