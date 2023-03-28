@@ -17,9 +17,9 @@ const SideNav = () => {
     const sideMenuOnClickHandler = (e) => {
         const id = e.currentTarget.id;
         if (id === "menu-manage") {
-            navigate("/menu/manage");
+            navigate("/manage/menu/list");
         } else if (id === "sale-manage") {
-            navigate("/sale/manage");
+            navigate("/manage/sale/list");
         }
     }
 

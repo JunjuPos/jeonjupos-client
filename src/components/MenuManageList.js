@@ -9,7 +9,7 @@ import {
 import {MyContext} from "../contexts/MyContext";
 import {useNavigate} from "react-router-dom";
 
-const MenuManage = (props) => {
+const MenuManageList = (props) => {
     const {manageMenuCategoryPkey, setManageMenuCategoryPkey} = useContext(MyContext);  // 현재 클릭한 카테고리 pkey 저장
     const navigate = useNavigate();
 
@@ -94,6 +94,11 @@ const MenuManage = (props) => {
         }
     }
 
+    const menuDetailOnClickHandler = (e) => {
+        const menupkey = e.currentTarget.id;
+        navigate("/manage/menu", {state: menupkey});
+    }
+
     return (
         <div className={"menu-manage-container"}>
             <div className={"menucategory-list-container"}>
@@ -121,7 +126,7 @@ const MenuManage = (props) => {
                 {
                     categoryMenuList.map((item) => {
                         return (
-                            <tr className={"menu-card"}>
+                            <tr id={item.menupkey} className={"menu-card"} onClick={(e) => {menuDetailOnClickHandler(e)}}>
                                 <td>{item.menuname}</td>
                                 <td>{item.originprice.toLocaleString()}</td>
                                 <td>{item.saleprice.toLocaleString()}</td>
@@ -139,4 +144,4 @@ const MenuManage = (props) => {
     )
 }
 
-export default MenuManage;
+export default MenuManageList;
