@@ -7,6 +7,7 @@ const MenuDetail = (props) => {
     const [menupkey] = useState(props.menupkey);
     const [menu, setMenu] = useState(null);
     const [disabled, setDisabled] = useState(true);
+    const [loading, setLoading] = useState(null);
 
     const getMenuCall = async () => {
         const result = await getMenu(localStorage.getItem("storeid"), menupkey)
@@ -14,8 +15,10 @@ const MenuDetail = (props) => {
     }
 
     useEffect(() => {
+        setLoading(true);
         //  메뉴 상세조회
         setTimeout( () => {getMenuCall();}, 1000);
+        setLoading(false);
     }, [])
 
     const menuModifyClick = () => {

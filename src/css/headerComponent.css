@@ -10,7 +10,8 @@
 .company {
     flex: 0.3;
     font-size: 180%;
-    line-height: 150%;
+    /*line-height: 150%;*/
+    transform: translateY(20%);
     font-family: "Gill Sans", sans-serif;;
     color: white;
 }
