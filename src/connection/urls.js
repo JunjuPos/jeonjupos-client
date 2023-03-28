@@ -1,9 +1,9 @@
-let ADDRESS = "http://api.jeonjupos.kr";
+let ADDRESS = "https://api.jeonjupos.kr";
 
 export const __DEV__ = false;
 
 if (__DEV__) {
-    ADDRESS = "http://api.jeonjupos.kr/test";
+    ADDRESS = "https://api-test.jeonjupos.kr";
 }
 
 // ADDRESS = 'http://127.0.0.1:8000'
